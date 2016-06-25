@@ -8,5 +8,6 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 * Remove old the issues labels, keeping bug (red), enhancement (sky blue) and task (white)
 * Clone the project
 * Execute the following command on the root directory
-** git config user.email your@email.com
+
+ * git config user.email your@email.com
 
