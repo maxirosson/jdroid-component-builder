@@ -2,6 +2,7 @@ package com.jdroid.component.builder
 
 import com.jdroid.component.builder.tasks.CloseGitHubMilestoneTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
+import com.jdroid.component.builder.tasks.GenerateChangelogTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.maven.MavenDeployment
 
@@ -14,6 +15,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask)
 		project.task('createGitHubRelease', type: CreateGitHubReleaseTask)
+		project.task('generateChangelogTask', type: GenerateChangelogTask)
 		project.task('printVersion') << {
 			println project.version
 		}

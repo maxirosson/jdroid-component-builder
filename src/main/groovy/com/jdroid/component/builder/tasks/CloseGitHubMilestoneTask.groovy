@@ -1,17 +1,12 @@
 package com.jdroid.component.builder.tasks
 
-import com.sun.corba.se.impl.util.RepositoryId
-import org.gradle.api.DefaultTask
+import com.jdroid.github.IRepositoryIdProvider
+import com.jdroid.github.Milestone
+import com.jdroid.github.client.GitHubClient
+import com.jdroid.github.service.MilestoneService
 import org.gradle.api.tasks.TaskAction
-import com.jdroid.github.IRepositoryIdProvider;
-import com.jdroid.github.Milestone;
-import com.jdroid.github.Release;
-import com.jdroid.github.RepositoryId;
-import com.jdroid.github.client.GitHubClient;
-import com.jdroid.github.service.MilestoneService;
-import com.jdroid.github.service.ReleaseService;
 
-public class CloseGitHubMilestoneTask extends DefaultTask {
+public class CloseGitHubMilestoneTask extends AbstractGitHubTask {
 
 	public IncrementMajorVersionTask() {
 		description = 'Close the GitHub Milestone'
@@ -19,13 +14,11 @@ public class CloseGitHubMilestoneTask extends DefaultTask {
 
 	@TaskAction
 	public void doExecute() {
-		GitHubClient client = new com.jdroid.github.client.GitHubClient();
-		client.setSerializeNulls(false);
-		client.setOAuth2Token(project.jdroidComponentBuilder.getProp('GITHUB_OATH_TOKEN'));
+		GitHubClient client = createGitHubClient();
 
-		IRepositoryIdProvider repositoryIdProvider = RepositoryId.create(project.jdroidComponentBuilder.getProp('REPOSITORY_OWNER'), project.jdroidComponentBuilder.getProp('REPOSITORY_NAME'));
+		closeMilestone(client, getIRepositoryIdProvider(), "v${project.version}");
 
-		closeMilestone(client, repositoryIdProvider, "v${project.version}");
+		System.console().readLine('\nVerify that the milestone is closed on Milestones [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/milestones] and press [Enter] key to continue...')
 	}
 
 	private void closeMilestone(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String milestoneTitle) throws IOException {

@@ -8,7 +8,7 @@ import com.jdroid.github.RepositoryId;
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-public class CreateGitHubReleaseTask extends DefaultTask {
+public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 
 	public IncrementMajorVersionTask() {
 		description = 'Close the GitHub Milestone'
@@ -16,15 +16,13 @@ public class CreateGitHubReleaseTask extends DefaultTask {
 
 	@TaskAction
 	public void doExecute() {
-		GitHubClient client = new GitHubClient();
-		client.setSerializeNulls(false);
-		client.setOAuth2Token(project.jdroidComponentBuilder.getProp('GITHUB_OATH_TOKEN'));
-
-		IRepositoryIdProvider repositoryIdProvider = RepositoryId.create(project.jdroidComponentBuilder.getProp('REPOSITORY_OWNER'), project.jdroidComponentBuilder.getProp('REPOSITORY_NAME'));
+		GitHubClient client = createGitHubClient();
 
 		def releaseNotesFile = project.file("./etc/releaseNotes.txt")
 
-		createRelease(client, repositoryIdProvider, "v${project.version}", releaseNotesFile.getText());
+		createRelease(client, getIRepositoryIdProvider(), "v${project.version}", releaseNotesFile.getText());
+
+		System.console().readLine('\nVerify that the release is present on Releases [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/releases] and press [Enter] key to continue...')
 	}
 
 	private void createRelease(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String name, String body) throws IOException {
