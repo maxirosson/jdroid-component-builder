@@ -3,6 +3,7 @@ package com.jdroid.component.builder
 import com.jdroid.component.builder.tasks.CloseGitHubMilestoneTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
 import com.jdroid.component.builder.tasks.GenerateChangelogTask
+import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
 import org.gradle.api.Project
 import org.gradle.api.artifacts.maven.MavenDeployment
 
@@ -13,6 +14,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.group = 'com.jdroidframework'
 
+		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
 		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask)
 		project.task('createGitHubRelease', type: CreateGitHubReleaseTask)
 		project.task('generateChangelogTask', type: GenerateChangelogTask)
@@ -71,14 +73,24 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 										distribution 'repo'
 									}
 								}
+								developers {
+									developer {
+										name 'Maxi Rosson'
+										email 'jdroidframework@gmail.com'
+										roles {
+											role 'architect'
+											role 'developer'
+										}
+									}
+								}
 								scm {
-									connection 'scm:git:git@github.com:' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_OWNER') + '/' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_NAME') + '.git'
-									developerConnection 'scm:git:git@github.com:' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_OWNER') + '/' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_NAME') + '.git'
-									url 'git@github.com:' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_OWNER') + '/' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_NAME') + '.git'
+									connection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+									developerConnection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+									url jdroidComponentBuilder.getRepositorySshUrl()
 								}
 								issueManagement {
 									system 'GitHub'
-									url 'https://github.com/' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_OWNER') + '/' + jdroidComponentBuilder.getProp('JDROID_GITHUB_REPOSITORY_NAME') + '/issues'
+									url jdroidComponentBuilder.getRepositoryUrl() + '/issues'
 								}
 							}
 						}

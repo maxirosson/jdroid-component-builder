@@ -38,6 +38,12 @@ repositories {
 	maven {
 		url "https://oss.sonatype.org/content/repositories/snapshots/"
 	}
+	String localMavenRepo = project.getProp('LOCAL_MAVEN_REPO')
+	if (localMavenRepo != null) {
+		maven {
+			url localMavenRepo
+		}
+	}
 	String extraMavenRepo = project.getProp('EXTRA_MAVEN_REPO')
 	if (extraMavenRepo != null) {
 		maven {
@@ -51,7 +57,7 @@ dependencies {
 
 	compile 'com.jdroidframework:jdroid-java:' + jdroidVersion
 
-	compile 'com.jdroidframework:jdroid-java-github:0.9.1'
+	compile 'com.jdroidframework:jdroid-java-github:0.9.3-SNAPSHOT'
 }
 
 task javadocJar(type: Jar) {

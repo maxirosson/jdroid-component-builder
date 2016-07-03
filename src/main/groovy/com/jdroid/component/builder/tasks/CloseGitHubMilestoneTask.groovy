@@ -18,7 +18,7 @@ public class CloseGitHubMilestoneTask extends AbstractGitHubTask {
 
 		closeMilestone(client, getIRepositoryIdProvider(), "v${project.version}");
 
-		System.console().readLine('\nVerify that the milestone is closed on Milestones [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/milestones] and press [Enter] key to continue...')
+		println 'Verify that the milestone is closed on Milestones [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/milestones]'
 	}
 
 	private void closeMilestone(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String milestoneTitle) throws IOException {

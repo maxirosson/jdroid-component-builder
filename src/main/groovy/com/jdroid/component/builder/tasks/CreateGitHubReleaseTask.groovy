@@ -18,14 +18,21 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 	public void doExecute() {
 		GitHubClient client = createGitHubClient();
 
+		String tagName = "v${project.version}"
 		def releaseNotesFile = project.file("./etc/releaseNotes.txt")
 
-		createRelease(client, getIRepositoryIdProvider(), "v${project.version}", releaseNotesFile.getText());
-
-		System.console().readLine('\nVerify that the release is present on Releases [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/releases] and press [Enter] key to continue...')
+		IRepositoryIdProvider repositoryIdProvider = getIRepositoryIdProvider();
+		ReleaseService releaseService = new ReleaseService(client);
+		Release release = releaseService.getReleaseByTagName(repositoryIdProvider, tagName);
+		if (release == null) {
+			createRelease(client, repositoryIdProvider, tagName, releaseNotesFile.getText());
+			println 'Verify that the release is present on Releases [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/releases]'
+		} else {
+			getLogger().warn('Skipping ' + tagName + ' release creation because it already exists.')
+		}
 	}
 
-	private void createRelease(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String name, String body) throws IOException {
+	private void createRelease(ReleaseService releaseService, IRepositoryIdProvider repositoryIdProvider, String name, String body) throws IOException {
 
 		Release release = new Release();
 		release.setBody(body);
@@ -35,7 +42,6 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		release.setPrerelease(false);
 		release.setTargetCommitish("production");
 
-		ReleaseService releaseService = new ReleaseService(client);
 		releaseService.createRelease(repositoryIdProvider, release);
 	}
 }
