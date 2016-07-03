@@ -1,6 +1,7 @@
 package com.jdroid.component.builder.tasks
 
 import org.gradle.api.tasks.TaskAction
+import org.gradle.process.ExecResult
 
 public class GenerateChangelogTask extends AbstractGitHubTask {
 
@@ -16,14 +17,17 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 		execute(['git', 'add', 'CHANGELOG.md'], projectDir)
 
 		// git commit -m "Updated CHANGELOG.md"
-		execute(['git', 'commit', '-m', '"Updated CHANGELOG.md"'], projectDir)
+		ExecResult result = execute(['git', 'commit', '-m', '"Updated CHANGELOG.md"'], projectDir, true)
+		if (result.exitValue == 0) {
+			// git diff HEAD
+			execute(['git', 'diff', 'HEAD'], projectDir)
 
-		// git diff HEAD
-		execute(['git', 'diff', 'HEAD'], projectDir)
+			// git push origin HEAD:production
+			execute(['git', 'push', 'origin', 'HEAD:production'], projectDir)
 
-		// git push origin HEAD:production
-		execute(['git', 'push', 'origin', 'HEAD:production'], projectDir)
-
-		println 'Please verify the CHANGELOG.md [' + getRepositoryUrl() + '/blob/production/CHANGELOG.md' + ']'
+			println 'Please verify the CHANGELOG.md [' + getRepositoryUrl() + '/blob/production/CHANGELOG.md' + ']'
+		} else {
+			getLogger().warn('Skipping CHANGELOG update because it already exists.')
+		}
 	}
 }

@@ -1,10 +1,11 @@
 package com.jdroid.component.builder.tasks
 
 import org.gradle.api.DefaultTask
+import org.gradle.process.ExecResult
 
 public class AbstractTask extends DefaultTask {
 
-	public void execute(def command, def workingDirectory) {
+	public ExecResult execute(def command, def workingDirectory, Boolean ignoreExitValueParam) {
 		StringBuilder builder = new StringBuilder()
 		command.each {
 			builder.append(it)
@@ -14,6 +15,11 @@ public class AbstractTask extends DefaultTask {
 		project.exec {
 			workingDir workingDirectory
 			commandLine command
+			ignoreExitValue ignoreExitValueParam
 		}
+	}
+
+	public ExecResult execute(def command, def workingDirectory) {
+		execute(command, workingDirectory, false)
 	}
 }
