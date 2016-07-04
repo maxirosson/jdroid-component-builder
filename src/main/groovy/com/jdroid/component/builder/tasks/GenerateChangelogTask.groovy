@@ -17,7 +17,7 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 		execute(['git', 'add', 'CHANGELOG.md'], projectDir)
 
 		// git commit -m "Updated CHANGELOG.md"
-		ExecResult result = execute(['git', 'commit', '-m', '"Updated CHANGELOG.md"'], projectDir, true)
+		ExecResult result = execute(['git', 'commit', '-m', 'Updated CHANGELOG.md'], projectDir, true)
 		if (result.exitValue == 0) {
 			// git diff HEAD
 			execute(['git', 'diff', 'HEAD'], projectDir)
