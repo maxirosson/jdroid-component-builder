@@ -8,8 +8,6 @@ description = 'Gradle Plugin to build Jdroid Components'
 group = 'com.jdroidframework'
 ext.packaging = 'jar'
 
-ext.jdroidVersion = "0.9.5"
-
 Boolean isSnapshot = getBooleanProp('SNAPSHOT', true)
 
 ext.VERSION_MAJOR = 0
@@ -28,7 +26,7 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath 'com.jdroidframework:jdroid-java-github:0.9.1'
+		classpath 'com.jdroidframework:jdroid-java-github:0.9.3'
 	}
 }
 
@@ -55,9 +53,8 @@ repositories {
 dependencies {
     compile localGroovy()
 
-	compile 'com.jdroidframework:jdroid-java:' + jdroidVersion
-
-	compile 'com.jdroidframework:jdroid-java-github:0.9.3-SNAPSHOT'
+	compile 'com.jdroidframework:jdroid-java:0.9.5'
+	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
 }
 
 task javadocJar(type: Jar) {
