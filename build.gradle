@@ -3,7 +3,7 @@ apply plugin: 'signing'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'maven'
 
-ext.projectName = 'Jdroid Internal Gradle Plugin'
+ext.projectName = 'Jdroid Component Builder Gradle Plugin'
 description = 'Gradle Plugin to build Jdroid Components'
 group = 'com.jdroidframework'
 ext.packaging = 'jar'
@@ -132,13 +132,13 @@ if (localUpload && localMavenRepo == null) {
 							}
 						}
 						scm {
-							connection 'scm:git:git@github.com:maxirosson/jdroid-internal.git'
-							developerConnection 'scm:git:git@github.com:maxirosson/jdroid-internal.git'
-							url 'git@github.com:maxirosson/jdroid-internal.git'
+							connection 'scm:git:git@github.com:maxirosson/jdroid-component-builder.git'
+							developerConnection 'scm:git:git@github.com:maxirosson/jdroid-component-builder.git'
+							url 'git@github.com:maxirosson/jdroid-component-builder.git'
 						}
 						issueManagement {
 							system 'GitHub'
-							url 'https://github.com/maxirosson/jdroid-internal/issues'
+							url 'https://github.com/maxirosson/jdroid-component-builder/issues'
 						}
 					}
 				}
