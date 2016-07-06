@@ -1,4 +1,4 @@
-# Jdroid Internal
+# Jdroid Component Builder
 Plugin, Tools &amp; Processes to build Jdroid Components
 
 ## New Jdroid component creation

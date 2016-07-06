@@ -22,7 +22,7 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		execute(['git', 'checkout', 'production'], projectDir)
 		execute(['git', 'pull'], projectDir)
 
-		execute(['./gradlew', 'clean', ':closeGitHubMilestone', ':createGitHubRelease', ':generateChangelogTask',
+		execute(['./gradlew', 'clean', ':toolsVerificationTask', ':closeGitHubMilestone', ':createGitHubRelease', ':generateChangelogTask',
 				 'uploadArchives', '--refresh-dependencies', '--stacktrace', '-PSNAPSHOT=false', '-PLOCAL_UPLOAD=false'], projectDir)
 	}
 }
