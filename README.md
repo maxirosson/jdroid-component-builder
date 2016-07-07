@@ -1,6 +1,13 @@
 # Jdroid Component Builder
 Plugin, Tools &amp; Processes to build Jdroid Components
 
+## Continuous Integration
+|Branch|Status|
+| ------------- | ------------- |
+|Master|[![Build Status](https://travis-ci.org/maxirosson/jdroid-component-builder.svg?branch=master)](https://travis-ci.org/maxirosson/jdroid-component-builder)|
+|Staging|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-component-builder.svg?branch=staging)](https://travis-ci.org/maxirosson/jdroid-component-builder)|
+|Production|[![Build Status](https://api.travis-ci.org/maxirosson/jdroid-component-builder.svg?branch=production)](https://travis-ci.org/maxirosson/jdroid-component-builder)|
+
 ## New Jdroid component creation
 
 * On GitHub
