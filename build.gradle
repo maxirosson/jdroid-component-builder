@@ -36,4 +36,5 @@ repositories {
 
 dependencies {
 	compile 'com.jdroidframework:jdroid-java:0.9.5'
+	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
 }
