@@ -54,8 +54,8 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 								}
 							}
 
+							pom.artifactId = project.ext.has('ARTIFACT_ID') ? project.ext.get('ARTIFACT_ID') : project.ext.get('JDROID_GITHUB_REPOSITORY_NAME')
 							pom.project {
-								name project.name
 								description project.description
 								packaging project.ext.packaging
 								url 'http://www.jdroidframework.com'
