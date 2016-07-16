@@ -16,9 +16,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.task('createGitHubRelease', type: CreateGitHubReleaseTask)
 		project.task('generateChangelogTask', type: GenerateChangelogTask)
 		project.task('toolsVerificationTask', type: ToolsVerificationTask)
-		project.task('printVersion') << {
-			println project.version
-		}
 
 		if (project.ext.has('packaging')) {
 			addUploadConfiguration()
