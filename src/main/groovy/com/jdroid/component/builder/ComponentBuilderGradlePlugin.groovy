@@ -20,7 +20,9 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			println project.version
 		}
 
-		addUploadConfiguration()
+		if (project.ext.has('packaging')) {
+			addUploadConfiguration()
+		}
 	}
 
 	private void addUploadConfiguration() {
