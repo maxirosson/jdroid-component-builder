@@ -36,7 +36,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			} else {
 				eachProject.afterEvaluate {
 
-					if (eachProject.ext.has('packaging') && (eachProject.ext.packaging == 'jar' || eachProject.ext.packaging == 'aar')) {
+					if (eachProject.ext.has('PACKAGING') && (eachProject.ext.PACKAGING == 'jar' || eachProject.ext.PACKAGING == 'aar')) {
 
 						eachProject.uploadArchives {
 							repositories {
@@ -59,8 +59,9 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 									pom.artifactId = eachProject.ext.has('ARTIFACT_ID') ? eachProject.ext.get('ARTIFACT_ID') : jdroidComponentBuilder.getRepositoryName()
 									pom.project {
+										name eachProject.ext.PROJECT_NAME != null ? eachProject.ext.PROJECT_NAME : eachProject.rootProject.ext.PROJECT_NAME
 										description eachProject.description != null ? eachProject.description : eachProject.rootProject.description
-										packaging eachProject.ext.packaging
+										packaging eachProject.ext.PACKAGING
 										url 'http://www.jdroidframework.com'
 										inceptionYear '2011'
 										organization {
