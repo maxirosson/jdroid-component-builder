@@ -9,99 +9,108 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		project.group = 'com.jdroidframework'
-
 		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
 		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask)
 		project.task('createGitHubRelease', type: CreateGitHubReleaseTask)
 		project.task('generateChangelogTask', type: GenerateChangelogTask)
 		project.task('toolsVerificationTask', type: ToolsVerificationTask)
 
-		if (project.ext.has('packaging')) {
-			addUploadConfiguration()
-		}
+		addUploadConfiguration()
 	}
 
 	private void addUploadConfiguration() {
 
-		project.apply plugin: 'maven'
-		project.apply plugin: 'signing'
+		project.getAllprojects().each {
 
-		Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
-		def localMavenRepo = jdroidComponentBuilder.getProp('LOCAL_MAVEN_REPO')
+			final eachProject = it
+			eachProject.group = 'com.jdroidframework'
 
-		if (localUpload && localMavenRepo == null) {
-			project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
-		} else {
-			project.afterEvaluate {
-				project.uploadArchives {
-					repositories {
-						mavenDeployer {
+			eachProject.apply plugin: 'maven'
+			eachProject.apply plugin: 'signing'
 
-							beforeDeployment { MavenDeployment deployment ->
-								project.signing.signPom(deployment)
-							}
+			Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
+			def localMavenRepo = jdroidComponentBuilder.getProp('LOCAL_MAVEN_REPO')
 
-							if (localUpload) {
-								repository(url: project.uri(localMavenRepo))
-							} else {
-								repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-									authentication(userName: getNexusUsername(), password: getNexusPassword())
-								}
-								snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-									authentication(userName: getNexusUsername(), password: getNexusPassword())
-								}
-							}
+			if (localUpload && localMavenRepo == null) {
+				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
+			} else {
+				eachProject.afterEvaluate {
 
-							pom.artifactId = project.ext.has('ARTIFACT_ID') ? project.ext.get('ARTIFACT_ID') : project.ext.get('JDROID_GITHUB_REPOSITORY_NAME')
-							pom.project {
-								description project.description
-								packaging project.ext.packaging
-								url 'http://www.jdroidframework.com'
-								inceptionYear '2011'
-								organization {
-									name 'Jdroid'
-									url 'http://www.jdroidframework.com'
-								}
-								licenses {
-									license {
-										name 'The Apache License, Version 2.0'
-										url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-										distribution 'repo'
+					if (eachProject.ext.has('packaging') && (eachProject.ext.packaging == 'jar' || eachProject.ext.packaging == 'aar')) {
+
+						eachProject.uploadArchives {
+							repositories {
+								mavenDeployer {
+
+									beforeDeployment { MavenDeployment deployment ->
+										eachProject.signing.signPom(deployment)
 									}
-								}
-								developers {
-									developer {
-										name 'Maxi Rosson'
-										email 'jdroidframework@gmail.com'
-										roles {
-											role 'architect'
-											role 'developer'
+
+									if (localUpload) {
+										repository(url: eachProject.uri(localMavenRepo))
+									} else {
+										repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+											authentication(userName: getNexusUsername(), password: getNexusPassword())
+										}
+										snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+											authentication(userName: getNexusUsername(), password: getNexusPassword())
+										}
+									}
+
+									pom.artifactId = eachProject.ext.has('ARTIFACT_ID') ? eachProject.ext.get('ARTIFACT_ID') : jdroidComponentBuilder.getRepositoryName()
+									pom.project {
+										description eachProject.description != null ? eachProject.description : project.description
+										packaging eachProject.ext.packaging
+										url 'http://www.jdroidframework.com'
+										inceptionYear '2011'
+										organization {
+											name 'Jdroid'
+											url 'http://www.jdroidframework.com'
+										}
+										licenses {
+											license {
+												name 'The Apache License, Version 2.0'
+												url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+												distribution 'repo'
+											}
+										}
+										developers {
+											developer {
+												name 'Maxi Rosson'
+												email 'jdroidframework@gmail.com'
+												roles {
+													role 'architect'
+													role 'developer'
+												}
+											}
+										}
+										scm {
+											connection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+											developerConnection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+											url jdroidComponentBuilder.getRepositorySshUrl()
+										}
+										issueManagement {
+											system 'GitHub'
+											url jdroidComponentBuilder.getRepositoryUrl() + '/issues'
 										}
 									}
 								}
-								scm {
-									connection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
-									developerConnection 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
-									url jdroidComponentBuilder.getRepositorySshUrl()
-								}
-								issueManagement {
-									system 'GitHub'
-									url jdroidComponentBuilder.getRepositoryUrl() + '/issues'
-								}
+							}
+						}
+
+						if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
+							eachProject.signing {
+								required { !eachProject.jdroid.isSnapshot && eachProject.gradle.taskGraph.hasTask("uploadArchives") }
+								sign eachProject.configurations.archives
 							}
 						}
 					}
-				}
-			}
 
-			if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
-				project.signing {
-					required { !project.jdroid.isSnapshot && project.gradle.taskGraph.hasTask("uploadArchives") }
-					sign project.configurations.archives
 				}
+
 			}
 		}
+
 
 	}
 
