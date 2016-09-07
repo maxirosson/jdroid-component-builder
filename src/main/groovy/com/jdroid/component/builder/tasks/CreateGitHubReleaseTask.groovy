@@ -4,14 +4,12 @@ import com.jdroid.github.IRepositoryIdProvider
 import com.jdroid.github.Release
 import com.jdroid.github.client.GitHubClient
 import com.jdroid.github.service.ReleaseService
-import com.jdroid.github.RepositoryId;
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 
-	public IncrementMajorVersionTask() {
-		description = 'Close the GitHub Milestone'
+	public CreateGitHubReleaseTask() {
+		description = 'Create the GitHub Release'
 	}
 
 	@TaskAction
@@ -26,7 +24,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		Release release = releaseService.listReleases(repositoryIdProvider).find { it.tagName == tagName }
 		if (release == null) {
 			createRelease(releaseService, repositoryIdProvider, tagName, releaseNotes);
-			println 'Verify that the release is present on Releases [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/releases]'
+			println 'Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]'
 		} else {
 			getLogger().warn('Skipping ' + tagName + ' release creation because it already exists.')
 		}
@@ -71,7 +69,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		release.setName(name);
 		release.setTagName(name);
 		release.setPrerelease(false);
-		release.setTargetCommitish("production");
+		release.setTargetCommitish(getGitBranch());
 
 		releaseService.createRelease(repositoryIdProvider, release);
 	}

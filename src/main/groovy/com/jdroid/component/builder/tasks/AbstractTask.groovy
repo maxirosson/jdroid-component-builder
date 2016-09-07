@@ -22,4 +22,8 @@ public class AbstractTask extends DefaultTask {
 	public ExecResult execute(def command, def workingDirectory) {
 		execute(command, workingDirectory, false)
 	}
+
+	public String getGitBranch() {
+		return 'git symbolic-ref HEAD'.execute().text.trim().replaceAll(".*/", "")
+	}
 }

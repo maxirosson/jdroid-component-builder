@@ -8,7 +8,7 @@ import org.gradle.api.tasks.TaskAction
 
 public class CloseGitHubMilestoneTask extends AbstractGitHubTask {
 
-	public IncrementMajorVersionTask() {
+	public CloseGitHubMilestoneTask() {
 		description = 'Close the GitHub Milestone'
 	}
 
