@@ -17,4 +17,6 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 * Clone the project to the local environment
 * Execute the following command on the root directory
  * git config user.email your@email.com
+* Add the project on Travis
+* Add JDROID_NEXUS_USERNAME and JDROID_NEXUS_PASSWORD environment variables on Travis
 
