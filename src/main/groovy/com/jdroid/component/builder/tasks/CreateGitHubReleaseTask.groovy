@@ -17,12 +17,12 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		GitHubClient client = createGitHubClient();
 
 		String tagName = "v${project.version}"
-		String releaseNotes = getReleaseNotes()
 
 		IRepositoryIdProvider repositoryIdProvider = getIRepositoryIdProvider()
 		ReleaseService releaseService = new ReleaseService(client)
 		Release release = releaseService.listReleases(repositoryIdProvider).find { it.tagName == tagName }
 		if (release == null) {
+			String releaseNotes = getReleaseNotes()
 			createRelease(releaseService, repositoryIdProvider, tagName, releaseNotes);
 			println 'Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]'
 		} else {
