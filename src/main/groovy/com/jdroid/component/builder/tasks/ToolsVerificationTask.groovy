@@ -6,7 +6,7 @@ import org.gradle.api.tasks.TaskAction
 
 public class ToolsVerificationTask extends DefaultTask {
 
-	private static final String EXPECTED_GRADLE_VERSION = "2.14.1"
+	private static final String EXPECTED_GRADLE_VERSION = "3.3"
 	private static final String EXPECTED_JAVA_VERSION = "1.8"
 
 	public ToolsVerificationTask() {

@@ -1,17 +1,3 @@
-ext.VERSION_MAJOR = 0
-ext.VERSION_MINOR = 2
-ext.VERSION_PATCH = 0
-
-ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
-ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
-
-ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
-
-apply plugin: 'com.jdroid.gradle.plugin'
-apply plugin: 'com.jdroid.component.builder'
-
-description = 'Gradle Plugin to build Jdroid Components'
-
 buildscript {
 	repositories {
 		jcenter()
@@ -30,6 +16,33 @@ buildscript {
 		classpath 'com.jdroidframework:jdroid-gradle-plugin:0.13.0'
 	}
 }
+
+plugins {
+	id "java-gradle-plugin"
+}
+
+gradlePlugin {
+	plugins {
+		simplePlugin {
+			id = "com.jdroid.component.builder"
+			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
+		}
+	}
+}
+
+ext.VERSION_MAJOR = 0
+ext.VERSION_MINOR = 2
+ext.VERSION_PATCH = 0
+
+ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
+ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
+
+ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
+
+apply plugin: 'com.jdroid.gradle.plugin'
+apply plugin: 'com.jdroid.component.builder'
+
+description = 'Gradle Plugin to build Jdroid Components'
 
 repositories {
 	mavenCentral()
