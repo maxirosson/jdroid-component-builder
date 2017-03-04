@@ -57,7 +57,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 										}
 									}
 
-									pom.artifactId = eachProject.ext.has('ARTIFACT_ID') ? eachProject.ext.get('ARTIFACT_ID') : jdroidComponentBuilder.getRepositoryName()
+									pom.artifactId = eachProject.ext.has('ARTIFACT_ID') ? eachProject.ext.get('ARTIFACT_ID') : eachProject.getName()
 									pom.project {
 										name eachProject.ext.has('PROJECT_NAME') && eachProject.ext.get('PROJECT_NAME') != null ? eachProject.ext.PROJECT_NAME : eachProject.rootProject.ext.PROJECT_NAME
 										description eachProject.description != null ? eachProject.description : eachProject.rootProject.description
