@@ -1,5 +1,14 @@
 # Change Log
 
+## [v0.2.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.2.0) (2017-03-04)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.1.0...v0.2.0)
+
+**Implemented enhancements:**
+
+- Add PROJECT\_NAME parameter to define the pom name property [\#18](https://github.com/maxirosson/jdroid-component-builder/issues/18)
+- Add ARTIFACT\_ID parameter to override the uploaded artifactId [\#17](https://github.com/maxirosson/jdroid-component-builder/issues/17)
+- Tools Verification Task [\#15](https://github.com/maxirosson/jdroid-component-builder/issues/15)
+
 ## [v0.1.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.1.0) (2016-07-05)
 **Implemented enhancements:**
 
