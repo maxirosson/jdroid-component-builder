@@ -14,7 +14,7 @@ public class AbstractTask extends DefaultTask {
 			builder.append(" ")
 		}
 		println "Executing command: " + builder.toString()
-		ExecResult execResult = project.exec {
+		project.exec {
 			workingDir workingDirectory
 			commandLine command
 			ignoreExitValue ignoreExitValueParam
@@ -26,7 +26,7 @@ public class AbstractTask extends DefaultTask {
 	}
 
 	public ExecResult execute(def command, def workingDirectory) {
-		execute(command, workingDirectory, false, false)
+		execute(command, workingDirectory, true, false)
 	}
 
 	public String getGitBranch() {

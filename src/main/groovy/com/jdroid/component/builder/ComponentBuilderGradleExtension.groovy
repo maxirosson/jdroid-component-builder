@@ -25,6 +25,10 @@ public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 		return getProp('JDROID_GITHUB_EMAIL')
 	}
 
+	public String getRepositoryCloneUrl() {
+		return 'https://' + getGitHubWriteToken() + '@github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '.git'
+	}
+
 	public String getRepositorySshUrl() {
 		return 'git@github.com:' + getRepositoryOwner() + '/' + getRepositoryName() + '.git'
 	}

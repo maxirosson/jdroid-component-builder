@@ -38,6 +38,10 @@ public class AbstractGitHubTask extends AbstractTask {
 		return project.jdroidComponentBuilder.getGiHubEmail()
 	}
 
+	public String getRepositoryCloneUrl() {
+		return project.jdroidComponentBuilder.getRepositoryCloneUrl()
+	}
+
 	public String getRepositorySshUrl() {
 		return project.jdroidComponentBuilder.getRepositorySshUrl()
 	}

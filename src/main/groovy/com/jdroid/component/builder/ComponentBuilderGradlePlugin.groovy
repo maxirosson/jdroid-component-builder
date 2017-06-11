@@ -9,11 +9,12 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
+		project.task('verifyTools', type: ToolsVerificationTask)
+		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyTools'
+		project.task('createGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeGitHubMilestone'
+		project.task('generateChangelog', type: GenerateChangelogTask).dependsOn 'createGitHubRelease'
+
 		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
-		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask)
-		project.task('createGitHubRelease', type: CreateGitHubReleaseTask)
-		project.task('generateChangelogTask', type: GenerateChangelogTask)
-		project.task('toolsVerificationTask', type: ToolsVerificationTask)
 
 		addUploadConfiguration()
 	}

@@ -11,9 +11,12 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 
 		File projectDir = getProjectDirectory()
 		if (!projectDir.exists()) {
-			execute(['git', 'clone', getRepositorySshUrl(), getRepositoryName()], projectDir.getParentFile())
+			execute(['git', 'clone', getRepositoryCloneUrl(), getRepositoryName()], projectDir.getParentFile())
 		}
 		execute(['git', 'config', 'user.email', getGiHubEmail()], projectDir)
+
+		// TODO Signed commits should be forced
+		execute(['git', 'config', 'commit.gpgsign', 'false'], projectDir)
 
 		// Synch production branch
 
@@ -22,7 +25,7 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		execute(['git', 'checkout', 'production'], projectDir)
 		execute(['git', 'pull'], projectDir)
 
-		execute(['./gradlew', 'clean', ':toolsVerificationTask', ':closeGitHubMilestone', ':createGitHubRelease', ':generateChangelogTask',
+		execute(['./gradlew', 'clean', ':verifyTools', ':closeGitHubMilestone', ':createGitHubRelease', ':generateChangelog',
 				 'uploadArchives', '--refresh-dependencies', '--stacktrace', '-PSNAPSHOT=false', '-PLOCAL_UPLOAD=false',
 				 '-PRELEASE_BUILD_TYPE_ENABLED=true', '-PRELEASE_FAKE_ENABLED=true', '-PACCEPT_SNAPSHOT_DEPENDENCIES=false'], projectDir)
 	}
