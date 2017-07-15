@@ -1,6 +1,5 @@
 package com.jdroid.component.builder
 
-import com.jdroid.java.exception.UnexpectedException
 import org.gradle.api.Project
 
 public class BaseGradleExtension {
@@ -36,8 +35,12 @@ public class BaseGradleExtension {
 		} else if (value.toString() == 'false') {
 			return false
 		} else {
-			throw new UnexpectedException("Invalid Boolean value: " + value)
+			throw new RuntimeException("Invalid Boolean value: " + value)
 		}
+	}
+
+	public String getStringProp(String propertyName) {
+		return getStringProp(propertyName, null)
 	}
 
 	public String getStringProp(String propertyName, String defaultValue) {

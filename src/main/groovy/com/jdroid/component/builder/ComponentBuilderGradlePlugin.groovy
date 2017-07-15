@@ -30,7 +30,15 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			eachProject.apply plugin: 'signing'
 
 			Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
-			def localMavenRepo = jdroidComponentBuilder.getProp('LOCAL_MAVEN_REPO')
+			String localMavenRepo = jdroidComponentBuilder.getStringProp('LOCAL_MAVEN_REPO')
+
+			String projectName = jdroidComponentBuilder.getStringProp('PROJECT_NAME')
+			if (projectName == null) {
+				projectName = jdroidComponentBuilder.getProp(eachProject.rootProject, 'PROJECT_NAME')
+				if (projectName == null) {
+					projectName = eachProject.getName()
+				}
+			}
 
 			if (localUpload && localMavenRepo == null) {
 				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping uploadArchives configuration")
@@ -60,7 +68,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 									pom.artifactId = eachProject.ext.has('ARTIFACT_ID') ? eachProject.ext.get('ARTIFACT_ID') : eachProject.getName()
 									pom.project {
-										name eachProject.ext.has('PROJECT_NAME') && eachProject.ext.get('PROJECT_NAME') != null ? eachProject.ext.PROJECT_NAME : eachProject.rootProject.ext.PROJECT_NAME
+										name projectName
 										description eachProject.description != null ? eachProject.description : eachProject.rootProject.description
 										packaging eachProject.ext.PACKAGING
 										url 'http://www.jdroidframework.com'
@@ -102,7 +110,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 						if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
 							eachProject.signing {
-								required { !eachProject.jdroid.isSnapshot && eachProject.gradle.taskGraph.hasTask("uploadArchives") }
+								required { !eachProject.version.isSnapshot && eachProject.gradle.taskGraph.hasTask("uploadArchives") }
 								sign eachProject.configurations.archives
 							}
 						}
