@@ -39,16 +39,18 @@ ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
 
 ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
 
-apply plugin: 'com.jdroid.gradle.plugin'
 apply plugin: 'com.jdroid.component.builder'
+apply plugin: 'com.jdroid.gradle.plugin'
 
 description = 'Gradle Plugin to build Jdroid Components'
 
 repositories {
 	mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
 	compile 'com.jdroidframework:jdroid-java:0.12.0'
 	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
+	compile 'com.gradle:build-scan-plugin:1.8'
 }

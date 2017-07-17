@@ -9,6 +9,8 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
+		project.apply plugin: 'com.gradle.build-scan'
+
 		project.task('verifyTools', type: ToolsVerificationTask)
 		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyTools'
 		project.task('createGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeGitHubMilestone'
@@ -17,6 +19,11 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
 
 		addUploadConfiguration()
+
+		project.buildScan {
+			licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+			licenseAgree = 'yes'
+		}
 	}
 
 	private void addUploadConfiguration() {
