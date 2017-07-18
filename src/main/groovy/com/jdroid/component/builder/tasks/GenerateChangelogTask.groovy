@@ -8,6 +8,8 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 	@TaskAction
 	public void doExecute() {
 
+		sleep(1000 * 20)
+
 		File projectDir = getProjectDirectory()
 
 		// github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t $GIT_HUB_READ_ONLY_TOKEN

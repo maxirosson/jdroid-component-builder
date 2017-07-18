@@ -13,7 +13,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.2.0'
-		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.14.0'
+		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.15.1'
 	}
 }
 
