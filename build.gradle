@@ -27,9 +27,7 @@ gradlePlugin {
 	}
 }
 
-ext.VERSION_MAJOR = 0
-ext.VERSION_MINOR = 3
-ext.VERSION_PATCH = 0
+version = '0.3.0'
 
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
