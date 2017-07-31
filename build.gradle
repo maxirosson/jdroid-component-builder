@@ -47,7 +47,7 @@ repositories {
 }
 
 dependencies {
-	compile 'com.jdroidframework:jdroid-java:0.14.0'
+	compile 'com.jdroidframework:jdroid-java-core:0.14.0'
 	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
 	compile 'com.gradle:build-scan-plugin:1.8'
 }
