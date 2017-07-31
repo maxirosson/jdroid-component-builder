@@ -8,7 +8,7 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 	@TaskAction
 	public void doExecute() {
 
-		sleep(1000 * 20)
+		sleep(1000 * 80)
 
 		File projectDir = getProjectDirectory()
 
