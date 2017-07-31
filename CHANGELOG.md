@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.3.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.3.0) (2017-07-31)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.2.0...v0.3.0)
+
+**Implemented enhancements:**
+
+- Build Scan Plugin integration [\#21](https://github.com/maxirosson/jdroid-component-builder/issues/21)
+- Upgrade to Gradle v3.5 [\#20](https://github.com/maxirosson/jdroid-component-builder/issues/20)
+
+**Fixed bugs:**
+
+- CHANGELOG.md is not properly generated [\#19](https://github.com/maxirosson/jdroid-component-builder/issues/19)
+
 ## [v0.2.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.2.0) (2017-03-04)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.1.0...v0.2.0)
 
