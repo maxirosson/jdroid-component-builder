@@ -14,7 +14,7 @@ public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 	}
 
 	public String getRepositoryOwner() {
-		return getProp('JDROID_GITHUB_REPOSITORY_OWNER')
+		return getProp('JDROID_GITHUB_REPOSITORY_OWNER', 'maxirosson')
 	}
 
 	public String getRepositoryName() {
