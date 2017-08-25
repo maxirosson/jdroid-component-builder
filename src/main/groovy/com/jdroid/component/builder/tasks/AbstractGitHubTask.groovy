@@ -1,10 +1,9 @@
 package com.jdroid.component.builder.tasks
 
 import com.jdroid.github.IRepositoryIdProvider
-import com.jdroid.github.RepositoryId;
+import com.jdroid.github.RepositoryId
 import com.jdroid.github.client.GitHubClient
-import com.jdroid.java.exception.UnexpectedException;
-import org.gradle.api.DefaultTask
+import com.jdroid.java.exception.UnexpectedException
 
 public class AbstractGitHubTask extends AbstractTask {
 
@@ -32,6 +31,10 @@ public class AbstractGitHubTask extends AbstractTask {
 
 	public String getRepositoryName() {
 		return project.jdroidComponentBuilder.getRepositoryName()
+	}
+
+	public String getGiHubUsername() {
+		return project.jdroidComponentBuilder.getGiHubUsername()
 	}
 
 	public String getGiHubEmail() {

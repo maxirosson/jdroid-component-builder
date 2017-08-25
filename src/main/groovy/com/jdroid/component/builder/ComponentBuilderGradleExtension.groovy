@@ -7,10 +7,10 @@ public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 	}
 
 	public String getGitHubWriteToken() {
-		return getProp('JDROID_GITHUB_WRITE_TOKEN')
+		return getProp('CI_GITHUB_WRITE_TOKEN')
 	}
 	public String getGitHubReadToken() {
-		return getProp('JDROID_GITHUB_READ_TOKEN')
+		return getProp('CI_GITHUB_READ_TOKEN')
 	}
 
 	public String getRepositoryOwner() {
@@ -21,8 +21,12 @@ public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 		return getProp('JDROID_GITHUB_REPOSITORY_NAME')
 	}
 
+	public String getGiHubUsername() {
+		return getProp('CI_GITHUB_USER_NAME')
+	}
+
 	public String getGiHubEmail() {
-		return getProp('JDROID_GITHUB_EMAIL')
+		return getProp('CI_GITHUB_USER_EMAIL')
 	}
 
 	public String getRepositoryCloneUrl() {

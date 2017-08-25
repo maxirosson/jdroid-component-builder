@@ -15,15 +15,6 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 		// github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t $GIT_HUB_READ_ONLY_TOKEN
 		execute(['github_changelog_generator', '--no-unreleased', '--no-pull-requests', '--no-pr-wo-labels', '--exclude-labels', 'task', '-t', getGitHubReadToken()], projectDir)
 
-		String ciGithubUserName = project.jdroid.getStringProp("CI_GITHUB_USER_NAME")
-		if (ciGithubUserName != null) {
-			execute(['git', 'config', 'user.name', ciGithubUserName])
-		}
-		String ciGithubUserEmail = project.jdroid.getStringProp("CI_GITHUB_USER_EMAIL")
-		if (ciGithubUserEmail != null) {
-			execute(['git', 'config', 'user.email', ciGithubUserEmail])
-		}
-
 		// git add CHANGELOG.md
 		execute(['git', 'add', 'CHANGELOG.md'], projectDir)
 

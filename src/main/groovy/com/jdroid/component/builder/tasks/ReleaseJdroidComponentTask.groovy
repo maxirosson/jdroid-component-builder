@@ -13,6 +13,8 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		if (!projectDir.exists()) {
 			execute(['git', 'clone', getRepositoryCloneUrl(), getRepositoryName()], projectDir.getParentFile())
 		}
+
+		execute(['git', 'config', 'user.name', getGiHubUsername()], projectDir)
 		execute(['git', 'config', 'user.email', getGiHubEmail()], projectDir)
 
 		// TODO Signed commits should be forced
