@@ -9,8 +9,12 @@ buildscript {
 		}
 	}
 	dependencies {
+
+		// https://github.com/maxirosson/jdroid-component-builder/blob/master/CHANGELOG.md
 		classpath 'com.jdroidframework:jdroid-component-builder:0.3.0'
-		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.16.3'
+
+		// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
+		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.17.0'
 	}
 }
 
@@ -40,12 +44,18 @@ apply plugin: 'com.jdroid.gradle.plugin'
 description = 'Gradle Plugin to build Jdroid Components'
 
 repositories {
-	mavenCentral()
+	jcenter()
 	maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
+
+	// https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
 	compile 'com.jdroidframework:jdroid-java-core:0.14.0'
+
+	// https://github.com/maxirosson/jdroid-java-github/blob/master/CHANGELOG.md
 	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
-	compile 'com.gradle:build-scan-plugin:1.8'
+
+	// https://plugins.gradle.org/plugin/com.gradle.build-scan
+	compile 'com.gradle:build-scan-plugin:1.9'
 }
