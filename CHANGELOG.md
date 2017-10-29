@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.4.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.4.0) (2017-10-29)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.3.0...v0.4.0)
+
+**Implemented enhancements:**
+
+- Default value for JDROID\_GITHUB\_REPOSITORY\_OWNER [\#23](https://github.com/maxirosson/jdroid-component-builder/issues/23)
+
+**Closed issues:**
+
+- Upgrade to gradle v4.1 [\#25](https://github.com/maxirosson/jdroid-component-builder/issues/25)
+- Upgrade to build scan plugin v1.9 [\#24](https://github.com/maxirosson/jdroid-component-builder/issues/24)
+
 ## [v0.3.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.3.0) (2017-07-31)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.2.0...v0.3.0)
 
