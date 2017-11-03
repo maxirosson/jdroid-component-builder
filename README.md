@@ -10,13 +10,15 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 
 ## New Jdroid component creation
 
-* On GitHub
+* GitHub
   * Create a github repository. Add the prefix `jdroid-` to the repository name
   * Protect the main branches (master, staging, production) and check the option "Require pull request reviews before merging"
   * Remove all the issues labels, keeping only bug (red), enhancement (sky blue) and task (white)
-* Clone the project to the local environment
-* Execute the following command on the root directory
-  * git config user.email your@email.com
-* Add the project on Travis
-* Add JDROID_NEXUS_USERNAME and JDROID_NEXUS_PASSWORD environment variables on Travis
+* Travis
+  * Add the project
+  * Add JDROID_NEXUS_USERNAME and JDROID_NEXUS_PASSWORD environment variables
+* Local Environment
+  * Clone the project to the local environment
+  * Execute the following command on the root directory
+    * git config user.email your@email.com
 
