@@ -12,7 +12,7 @@ public class BaseGradlePlugin implements Plugin<Project> {
 	public void apply(Project project) {
 		this.project = project
 
-		project.extensions.create("jdroidComponentBuilder", getExtensionClass(), this)
+		project.extensions.create("jdroidComponentBuilder", getExtensionClass(), project)
 		jdroidComponentBuilder = project.jdroidComponentBuilder
 	}
 

@@ -18,25 +18,15 @@ buildscript {
 	}
 }
 
-plugins {
-	id "java-gradle-plugin"
-}
-
-gradlePlugin {
-	plugins {
-		simplePlugin {
-			id = "com.jdroid.component.builder"
-			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
-		}
-	}
-}
-
 version = '0.5.0'
 
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
 
 ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
+
+// https://docs.gradle.org/current/userguide/javaGradle_plugin.html
+apply plugin: 'java-gradle-plugin'
 
 apply plugin: 'com.jdroid.component.builder'
 apply plugin: 'com.jdroid.gradle.plugin'
@@ -58,4 +48,15 @@ dependencies {
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
 	compile 'com.gradle:build-scan-plugin:1.9'
+
+	testCompile 'junit:junit:4.12'
+}
+
+gradlePlugin {
+	plugins {
+		componentBuilderPlugin {
+			id = "com.jdroid.component.builder"
+			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
+		}
+	}
 }

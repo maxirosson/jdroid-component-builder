@@ -1,9 +1,11 @@
 package com.jdroid.component.builder
 
+import org.gradle.api.Project
+
 public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 
-	public ComponentBuilderGradleExtension(ComponentBuilderGradlePlugin componentBuilderGradlePlugin) {
-		super(componentBuilderGradlePlugin)
+	public ComponentBuilderGradleExtension(Project project) {
+		super(project)
 	}
 
 	public String getGitHubWriteToken() {

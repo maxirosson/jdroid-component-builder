@@ -4,10 +4,10 @@ import org.gradle.api.Project
 
 public class BaseGradleExtension {
 
-	protected final BaseGradlePlugin baseGradlePlugin
+	protected final Project project
 
-	public BaseGradleExtension(BaseGradlePlugin baseGradlePlugin) {
-		this.baseGradlePlugin = baseGradlePlugin
+	public BaseGradleExtension(Project project) {
+		this.project = project
 	}
 
 	public def getProp(String propertyName) {
@@ -15,7 +15,7 @@ public class BaseGradleExtension {
 	}
 
 	public def getProp(String propertyName, def defaultValue) {
-		def value = getProp(baseGradlePlugin.project, propertyName)
+		def value = getProp(project, propertyName)
 		if (value == null) {
 			value = System.getenv(propertyName)
 		}
