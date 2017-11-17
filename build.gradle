@@ -58,4 +58,8 @@ dependencies {
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
 	compile 'com.gradle:build-scan-plugin:1.9'
+
+	// https://bintray.com/jfrog/jfrog-jars/gradle-bintray-plugin
+	// https://github.com/bintray/gradle-bintray-plugin
+	compile 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
 }
