@@ -1,6 +1,7 @@
 package com.jdroid.component.builder.tasks
 
 import com.jdroid.component.builder.commons.LogOutputStream
+import org.apache.tools.ant.types.Commandline
 import org.gradle.api.Action
 import org.gradle.api.DefaultTask
 import org.gradle.process.ExecResult
@@ -17,7 +18,7 @@ public class AbstractTask extends DefaultTask {
 				if (workingDirectory != null) {
 					execSpec.setWorkingDir(workingDirectory);
 				}
-				execSpec.setCommandLine((Object[])command.split(" "));
+				execSpec.setCommandLine((Object[])Commandline.translateCommandline(command));
 				execSpec.setIgnoreExitValue(ignoreExitValue);
 				if (logStandardOutput) {
 					execSpec.setStandardOutput(new LogOutputStream(getLogger(), logLevel));
