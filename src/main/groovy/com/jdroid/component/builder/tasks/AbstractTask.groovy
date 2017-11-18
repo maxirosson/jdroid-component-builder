@@ -9,7 +9,7 @@ import org.gradle.process.ExecSpec;
 
 public class AbstractTask extends DefaultTask {
 
-	public ExecResult execute(String command, String workingDirectory, Boolean logStandardOutput, Boolean ignoreExitValue) {
+	public ExecResult execute(String command, File workingDirectory, Boolean logStandardOutput, Boolean ignoreExitValue) {
 		log("Executing command: " + command);
 		return getProject().exec(new Action<ExecSpec>() {
 			@Override
@@ -27,12 +27,12 @@ public class AbstractTask extends DefaultTask {
 		});
 	}
 
-	public ExecResult execute(String command, String workingDirectory) {
+	public ExecResult execute(String command, File workingDirectory) {
 		return execute(command, workingDirectory, true, false);
 	}
 
 	public ExecResult execute(String command) {
-		return execute(command, null);
+		return execute(command, getProject().getRootProject().getProjectDir());
 	}
 
 	public String getGitBranch() {
