@@ -12,20 +12,14 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 
 		File projectDir = getProjectDirectory()
 
-		// github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t $GIT_HUB_READ_ONLY_TOKEN
-		execute(['github_changelog_generator', '--no-unreleased', '--no-pull-requests', '--no-pr-wo-labels', '--exclude-labels', 'task', '-t', getGitHubReadToken()], projectDir)
+		execute('github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken(), projectDir)
 
-		// git add CHANGELOG.md
-		execute(['git', 'add', 'CHANGELOG.md'], projectDir)
+		execute('git add CHANGELOG.md', projectDir)
 
-		// git commit -m "Updated CHANGELOG.md"
-		ExecResult result = execute(['git', 'commit', '-m', 'Updated CHANGELOG.md'], projectDir, true, true)
+		ExecResult result = execute('git commit -m "Updated CHANGELOG.md"', projectDir, true, true)
 		if (result.exitValue == 0) {
-			// git diff HEAD
-			execute(['git', 'diff', 'HEAD'], projectDir)
-
-			// git push origin HEAD:production
-			execute(['git', 'push', 'origin', 'HEAD:production'], projectDir)
+			execute('git diff HEAD', projectDir)
+			execute('git push origin HEAD:production', projectDir)
 
 			println 'Please verify the CHANGELOG.md [' + getRepositoryUrl() + '/blob/production/CHANGELOG.md' + ']'
 		} else {

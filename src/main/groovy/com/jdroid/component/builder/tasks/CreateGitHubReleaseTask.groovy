@@ -33,7 +33,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 	private String getReleaseNotes() {
 		File projectDir = getProjectDirectory()
 
-		execute(['github_changelog_generator', '--unreleased-only', '--no-compare-link', '--no-pull-requests', '--no-pr-wo-labels', '--exclude-labels', 'task', '-t', getGitHubReadToken()], projectDir)
+		execute('github_changelog_generator --unreleased-only --no-compare-link --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken(), projectDir)
 
 		File changeLogFile = new File(projectDir, "/CHANGELOG.md")
 
@@ -55,8 +55,8 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 			}
 		}
 
-		execute(['git', 'add', '-A'], projectDir)
-		execute(['git', 'stash'], projectDir)
+		execute('git add -A', projectDir)
+		execute('git stash', projectDir)
 
 		return builder.toString().trim()
 	}
