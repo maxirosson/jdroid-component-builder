@@ -20,7 +20,7 @@ public class ToolsVerificationTaskTest extends AbstractFunctionalTest {
 	
 	@Test
 	public void myFirstTest() throws IOException {
-		BuildResult result = createBuildResult("verifyTools");
-		assertEquals(result.task(":verifyTools").getOutcome(), SUCCESS);
+		BuildResult result = createBuildResult("verifyJdroidTools");
+		assertEquals(result.task(":verifyJdroidTools").getOutcome(), SUCCESS);
 	}
 }
