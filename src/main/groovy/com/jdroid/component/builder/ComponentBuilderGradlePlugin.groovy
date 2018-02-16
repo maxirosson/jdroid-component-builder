@@ -11,10 +11,10 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.apply plugin: 'com.gradle.build-scan'
 
-		project.task('verifyTools', type: ToolsVerificationTask)
-		project.task('closeGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyTools'
-		project.task('createGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeGitHubMilestone'
-		project.task('generateChangelog', type: GenerateChangelogTask).dependsOn 'createGitHubRelease'
+		project.task('verifyJdroidTools', type: ToolsVerificationTask)
+		project.task('closeJdroidGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyJdroidTools'
+		project.task('createJdroidGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeJdroidGitHubMilestone'
+		project.task('generateJdroidChangelog', type: GenerateChangelogTask).dependsOn 'createJdroidGitHubRelease'
 
 		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
 

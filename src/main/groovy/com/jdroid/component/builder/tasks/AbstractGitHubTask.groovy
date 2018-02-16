@@ -5,7 +5,7 @@ import com.jdroid.github.RepositoryId
 import com.jdroid.github.client.GitHubClient
 import com.jdroid.java.exception.UnexpectedException
 
-public class AbstractGitHubTask extends AbstractTask {
+public abstract class AbstractGitHubTask extends AbstractTask {
 
 	public GitHubClient createGitHubClient() {
 		GitHubClient client = new GitHubClient();

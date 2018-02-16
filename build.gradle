@@ -43,8 +43,8 @@ dependencies {
 	// https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
 	compile 'com.jdroidframework:jdroid-java-core:0.14.0'
 
-	// https://github.com/maxirosson/jdroid-java-github/blob/master/CHANGELOG.md
-	compile 'com.jdroidframework:jdroid-java-github:0.9.3'
+	// https://github.com/maxirosson/jdroid-java-github/releases
+	compile 'com.jdroidframework:jdroid-java-github:0.9.4'
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
 	compile 'com.gradle:build-scan-plugin:1.9'
