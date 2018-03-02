@@ -14,7 +14,7 @@ buildscript {
 		classpath 'com.jdroidframework:jdroid-component-builder:0.4.0'
 
 		// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
-		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.19.0-SNAPSHOT'
+		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.18.0'
 	}
 }
 
@@ -47,7 +47,7 @@ dependencies {
 	compile 'com.jdroidframework:jdroid-java-github:0.9.4'
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
-	compile 'com.gradle:build-scan-plugin:1.9'
+	compile 'com.gradle:build-scan-plugin:1.12.1'
 
 	testCompile 'junit:junit:4.12'
 }
