@@ -1,24 +1,26 @@
-package com.jdroid.component.builder.tasks
+package com.jdroid.component.builder.tasks;
 
-import com.jdroid.github.IRepositoryIdProvider
-import com.jdroid.github.Milestone
-import com.jdroid.github.client.GitHubClient
-import com.jdroid.github.service.MilestoneService
-import org.gradle.api.tasks.TaskAction
+import com.jdroid.github.IRepositoryIdProvider;
+import com.jdroid.github.Milestone;
+import com.jdroid.github.client.GitHubClient;
+import com.jdroid.github.service.MilestoneService;
+
+import java.io.IOException;
+import java.util.Date;
 
 public class CloseGitHubMilestoneTask extends AbstractGitHubTask {
-
+	
 	public CloseGitHubMilestoneTask() {
-		description = 'Close the GitHub Milestone'
+		setDescription("Close the GitHub Milestone");
 	}
 
-	@TaskAction
-	public void doExecute() {
+	@Override
+	protected void onExecute() throws IOException {
 		GitHubClient client = createGitHubClient();
 
-		closeMilestone(client, getIRepositoryIdProvider(), "v${project.version}");
+		closeMilestone(client, getIRepositoryIdProvider(), "v" + getProject().getVersion());
 
-		println 'Verify that the milestone is closed on Milestones [https://github.com/' + getRepositoryOwner() + '/' + getRepositoryName() + '/milestones]'
+		log("Verify that the milestone is closed on Milestones [https://github.com/" + getRepositoryOwner() + "/" + getRepositoryName() + "/milestones]");
 	}
 
 	private void closeMilestone(GitHubClient client, IRepositoryIdProvider repositoryIdProvider, String milestoneTitle) throws IOException {
@@ -36,6 +38,9 @@ public class CloseGitHubMilestoneTask extends AbstractGitHubTask {
 				milestoneService.editMilestone(repositoryIdProvider, newMilestone);
 				break;
 			}
+
 		}
+
 	}
+
 }

@@ -4,7 +4,6 @@ import com.jdroid.github.IRepositoryIdProvider
 import com.jdroid.github.Release
 import com.jdroid.github.client.GitHubClient
 import com.jdroid.github.service.ReleaseService
-import org.gradle.api.tasks.TaskAction
 
 public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 
@@ -12,8 +11,8 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		description = 'Create the GitHub Release'
 	}
 
-	@TaskAction
-	public void doExecute() {
+	@Override
+	protected void onExecute() throws IOException {
 		GitHubClient client = createGitHubClient();
 
 		String tagName = "v${project.version}"

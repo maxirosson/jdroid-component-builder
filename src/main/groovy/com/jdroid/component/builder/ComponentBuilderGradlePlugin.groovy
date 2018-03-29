@@ -21,8 +21,8 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		addUploadConfiguration()
 
 		project.buildScan {
-			licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-			licenseAgree = 'yes'
+			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+			termsOfServiceAgree = 'yes'
 		}
 	}
 

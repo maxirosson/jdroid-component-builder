@@ -1,12 +1,11 @@
 package com.jdroid.component.builder.tasks
 
-import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
 public class GenerateChangelogTask extends AbstractGitHubTask {
 
-	@TaskAction
-	public void doExecute() {
+	@Override
+	protected void onExecute() throws IOException {
 
 		sleep(1000 * 80)
 
