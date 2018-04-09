@@ -5,7 +5,6 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 |Branch|Status|Workflows|Insights|
 | ------------- | ------------- | ------------- | ------------- |
 |master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-component-builder/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-component-builder/master)|
-|staging|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/staging.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/staging)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-component-builder/tree/staging)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-component-builder/staging)|
 |production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-component-builder/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-component-builder/production)|
 
 ## New Jdroid component creation
