@@ -13,7 +13,7 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 
 		execute('git add CHANGELOG.md')
 
-		ExecResult result = execute('git commit -m "Updated CHANGELOG.md"', true, true)
+		ExecResult result = execute('git commit -m "Updated CHANGELOG.md"', getProject().getRootProject().getProjectDir(), true, true)
 		if (result.exitValue == 0) {
 			execute('git diff HEAD')
 			execute('git push origin HEAD:production')
