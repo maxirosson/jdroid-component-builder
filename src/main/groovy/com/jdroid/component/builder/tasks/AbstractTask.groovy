@@ -41,7 +41,7 @@ public abstract class AbstractTask extends DefaultTask {
 				execSpec.setCommandLine((Object[])Commandline.translateCommandline(command));
 				execSpec.setIgnoreExitValue(ignoreExitValue);
 				if (logStandardOutput) {
-					execSpec.setStandardOutput(new LogOutputStream(getLogger(), logLevel));
+					execSpec.setStandardOutput(new LogOutputStream(getLogger(), LogLevel.DEBUG));
 				}
 				execSpec.setErrorOutput(new LogOutputStream(getLogger(), LogLevel.ERROR));
 			}
