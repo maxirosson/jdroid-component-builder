@@ -46,7 +46,7 @@ dependencies {
 	compile 'com.jdroidframework:jdroid-java-core:0.14.0'
 
 	// https://github.com/maxirosson/jdroid-java-github/releases
-	compile 'com.jdroidframework:jdroid-java-github:0.9.4'
+	compile 'com.jdroidframework:jdroid-java-github:1.0.0-SNAPSHOT'
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
 	compile 'com.gradle:build-scan-plugin:1.12.1'
