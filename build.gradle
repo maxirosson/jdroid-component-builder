@@ -32,6 +32,9 @@ apply plugin: 'java-gradle-plugin'
 apply plugin: 'com.jdroid.component.builder'
 apply plugin: 'com.jdroid.gradle.plugin'
 
+// TODO Remove the group override when migrating to jdroid-component-builder:1.0.0
+group = 'com.jdroidtools'
+
 description = 'Gradle Plugin to build Jdroid Components'
 
 repositories {

@@ -31,7 +31,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.getAllprojects().each {
 
 			final eachProject = it
-			eachProject.group = 'com.jdroidframework'
+			eachProject.group = 'com.jdroidtools'
 
 			eachProject.apply plugin: 'maven'
 			eachProject.apply plugin: 'signing'
