@@ -1,5 +1,18 @@
 # Change Log
 
+## [v1.0.0](https://github.com/maxirosson/jdroid-component-builder/tree/v1.0.0) (2018-04-09)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.4.0...v1.0.0)
+
+**Implemented enhancements:**
+
+- Rename group id to com.jdroidtools [\#30](https://github.com/maxirosson/jdroid-component-builder/issues/30)
+- Upgrade to Gradle v4.5.1 [\#29](https://github.com/maxirosson/jdroid-component-builder/issues/29)
+- Added jdroid phrase to all the tasks [\#27](https://github.com/maxirosson/jdroid-component-builder/issues/27)
+
+**Closed issues:**
+
+- Upgrade to Build Scan Plugin v1.12.1 [\#28](https://github.com/maxirosson/jdroid-component-builder/issues/28)
+
 ## [v0.4.0](https://github.com/maxirosson/jdroid-component-builder/tree/v0.4.0) (2017-10-29)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v0.3.0...v0.4.0)
 
