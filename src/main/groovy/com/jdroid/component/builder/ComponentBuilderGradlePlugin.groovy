@@ -78,11 +78,11 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 										name projectName
 										description eachProject.description != null ? eachProject.description : eachProject.rootProject.description
 										packaging eachProject.ext.PACKAGING
-										url 'http://www.jdroidframework.com'
+										url 'https://jdroidtools.com'
 										inceptionYear '2011'
 										organization {
 											name 'Jdroid'
-											url 'http://www.jdroidframework.com'
+											url 'https://jdroidtools.com'
 										}
 										licenses {
 											license {
@@ -94,7 +94,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 										developers {
 											developer {
 												name 'Maxi Rosson'
-												email 'jdroidframework@gmail.com'
+												email 'contact@jdroidtools.com'
 												roles {
 													role 'architect'
 													role 'developer'
