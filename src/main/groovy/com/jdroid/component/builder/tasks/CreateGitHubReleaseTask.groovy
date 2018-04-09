@@ -19,7 +19,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 
 		IRepositoryIdProvider repositoryIdProvider = getIRepositoryIdProvider()
 		ReleaseService releaseService = new ReleaseService(client)
-		Release release = releaseService.getReleaseByTagName(tagName);
+		Release release = releaseService.getReleaseByTagName(repositoryIdProvider, tagName);
 		if (release == null) {
 			String releaseNotes = getReleaseNotes()
 			createRelease(releaseService, repositoryIdProvider, tagName, releaseNotes);
