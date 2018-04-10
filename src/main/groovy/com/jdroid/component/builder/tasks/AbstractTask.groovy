@@ -13,7 +13,6 @@ import org.gradle.process.ExecSpec
 public abstract class AbstractTask extends DefaultTask {
 
 	protected PropertyResolver propertyResolver;
-	private LogLevel logLevel = LogLevel.LIFECYCLE;
 
 	@TaskAction
 	public final void doExecute() {
@@ -28,7 +27,7 @@ public abstract class AbstractTask extends DefaultTask {
 	protected abstract void onExecute() throws IOException;
 
 	protected void log(String message) {
-		getLogger().log(logLevel, message);
+		getLogger().log(LogLevel.LIFECYCLE, message);
 	}
 
 	public ExecResult execute(String command, File workingDirectory, Boolean logStandardOutput, Boolean ignoreExitValue) {
@@ -44,7 +43,7 @@ public abstract class AbstractTask extends DefaultTask {
 				if (logStandardOutput) {
 					execSpec.setStandardOutput(new LogOutputStream(getLogger(), logLevel));
 				}
-				execSpec.setErrorOutput(new LogOutputStream(getLogger(), LogLevel.ERROR));
+				execSpec.setErrorOutput(new LogOutputStream(getLogger(), LogLevel.LIFECYCLE));
 			}
 		});
 	}
