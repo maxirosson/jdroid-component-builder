@@ -12,14 +12,14 @@ buildscript {
 	dependencies {
 
 		// https://github.com/maxirosson/jdroid-component-builder/blob/master/CHANGELOG.md
-		classpath 'com.jdroidtools:jdroid-component-builder:1.0.0-SNAPSHOT'
+		classpath 'com.jdroidtools:jdroid-component-builder:1.0.0'
 
 		// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
 		classpath 'com.jdroidframework:jdroid-gradle-project-plugin:0.18.0'
 	}
 }
 
-version = '1.0.0'
+version = '1.0.1'
 
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
