@@ -23,7 +23,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 		if (release == null) {
 			String releaseNotes = getReleaseNotes()
 			createRelease(releaseService, repositoryIdProvider, tagName, releaseNotes);
-			println 'Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]'
+			log('Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]')
 		} else {
 			getLogger().warn('Skipping ' + tagName + ' release creation because it already exists.')
 		}
@@ -32,7 +32,7 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 	private String getReleaseNotes() {
 		File projectDir = getProjectDirectory()
 
-		execute('github_changelog_generator --unreleased-only --no-compare-link --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken())
+		execute('github_changelog_generator --unreleased-only --no-compare-link --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken(), projectDir)
 
 		File changeLogFile = new File(projectDir, "/CHANGELOG.md")
 
@@ -54,8 +54,8 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 			}
 		}
 
-		execute('git add -A')
-		execute('git stash')
+		execute('git add -A', projectDir)
+		execute('git stash', projectDir)
 
 		return builder.toString().trim()
 	}

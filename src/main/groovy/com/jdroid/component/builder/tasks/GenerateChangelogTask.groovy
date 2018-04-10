@@ -9,16 +9,18 @@ public class GenerateChangelogTask extends AbstractGitHubTask {
 
 		sleep(1000 * 80)
 
-		execute('github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken())
+		File projectDir = getProjectDirectory()
+
+		execute('github_changelog_generator --no-unreleased --no-pull-requests --no-pr-wo-labels --exclude-labels task -t ' + getGitHubReadToken(), projectDir)
 
 		execute('git add CHANGELOG.md')
 
-		ExecResult result = execute('git commit -m "Updated CHANGELOG.md"', getProject().getRootProject().getProjectDir(), true, true)
+		ExecResult result = execute('git commit -m "Updated CHANGELOG.md"', projectDir, true, true)
 		if (result.exitValue == 0) {
-			execute('git diff HEAD')
-			execute('git push origin HEAD:production')
+			execute('git diff HEAD', projectDir)
+			execute('git push origin HEAD:production', projectDir)
 
-			println 'Please verify the CHANGELOG.md [' + getRepositoryUrl() + '/blob/production/CHANGELOG.md' + ']'
+			log('Please verify the CHANGELOG.md [' + getRepositoryUrl() + '/blob/production/CHANGELOG.md' + ']')
 		} else {
 			getLogger().warn('Skipping CHANGELOG update because it already exists.')
 		}
