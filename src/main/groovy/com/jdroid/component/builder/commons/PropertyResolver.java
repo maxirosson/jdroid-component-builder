@@ -108,7 +108,7 @@ public class PropertyResolver {
 		if (value == null) {
 			return defaultValue;
 		} else {
-			return value instanceof List ? (List)value : StringUtils.splitToListWithCommaSeparator(value.toString());
+			return value instanceof List ? (List)value : StringUtils.splitWithCommaSeparator(value.toString());
 		}
 	}
 }
