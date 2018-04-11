@@ -19,7 +19,7 @@ buildscript {
 	}
 }
 
-version = '1.0.1'
+version = '1.0.2'
 
 ext.JDROID_GITHUB_REPOSITORY_OWNER = 'maxirosson'
 ext.JDROID_GITHUB_REPOSITORY_NAME = 'jdroid-component-builder'
