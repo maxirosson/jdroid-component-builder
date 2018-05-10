@@ -64,8 +64,8 @@ jobs:
           path: ~/junit
 
       - store_artifacts:
-          path: ./jdroid-component-builder/build/reports/tests/test
-          destination: jdroid-component-builder/tests
+          path: ./build/reports/tests/test
+          destination: tests
 
   deploy:
     <<: *defaults
