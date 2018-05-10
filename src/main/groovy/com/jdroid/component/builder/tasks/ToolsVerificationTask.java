@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ToolsVerificationTask extends AbstractTask {
 	
-	private static final String EXPECTED_GRADLE_VERSION = "4.5.1";
+	private static final String EXPECTED_GRADLE_VERSION = "4.6";
 	private static final String EXPECTED_JAVA_VERSION = "1.8";
 	
 	public ToolsVerificationTask() {
