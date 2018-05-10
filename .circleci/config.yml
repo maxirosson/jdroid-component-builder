@@ -64,6 +64,10 @@ jobs:
           path: ~/junit
 
       - store_artifacts:
+          path: ./build/reports/tests/functionalTest
+          destination: functionalTests
+
+      - store_artifacts:
           path: ./build/reports/tests/test
           destination: tests
 
