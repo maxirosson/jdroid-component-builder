@@ -13,7 +13,13 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 * Create a github repository. Add the prefix `jdroid-` to the repository name
 * Protect the main branches (master, staging, production) and check the option "Require pull request reviews before merging"
 * Remove all the issues labels, keeping only bug (red), enhancement (sky blue) and task (white)
-* Add the [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) and [LICENCE](LICENCE.md) files
+* Add the following files/directories:
+  * [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+  * [LICENCE-md](LICENCE.md)
+  * [.gitignore](.gitignore)
+  * [.idea/codeStyles/](.idea/codeStyles/)
+  * [gradlew](gradlew)
+  * [gradle/wrapper/](gradle/wrapper/)
 * Add the project on Jdroid [README](https://github.com/maxirosson/jdroid/blob/master/README.md)
 
 #### Circle CI
@@ -24,4 +30,3 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 * Clone the project to the local environment
 * Execute the following command on the root directory
   * git config user.email your@email.com
-
