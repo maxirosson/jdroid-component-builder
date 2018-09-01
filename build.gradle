@@ -48,7 +48,7 @@ repositories {
 dependencies {
 
 	// https://github.com/maxirosson/jdroid-java/blob/master/CHANGELOG.md
-	compile 'com.jdroidtools:jdroid-java-core:1.0.0'
+	compile 'com.jdroidtools:jdroid-java-core:2.0.0'
 
 	// https://github.com/maxirosson/jdroid-java-github/releases
 	compile 'com.jdroidtools:jdroid-java-github:1.0.0'
