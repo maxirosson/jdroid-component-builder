@@ -11,7 +11,7 @@ Plugin, Tools &amp; Processes to build Jdroid Components
 
 #### GitHub
 * Create a github repository. Add the prefix `jdroid-` to the repository name
-* Protect the main branches (master, staging, production) and check the option "Require pull request reviews before merging"
+* Protect the main branches (master & production) and check the option "Require pull request reviews before merging"
 * Remove all the issues labels, keeping only bug (red), enhancement (sky blue) and task (white)
 * Add the following files/directories:
   * [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
