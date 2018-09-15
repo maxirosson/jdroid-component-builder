@@ -1,5 +1,6 @@
 package com.jdroid.component.builder
 
+import com.jdroid.java.collections.Maps
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -18,5 +19,11 @@ public class BaseGradlePlugin implements Plugin<Project> {
 
 	protected Class<? extends BaseGradleExtension> getExtensionClass() {
 		return BaseGradleExtension.class;
+	}
+
+	protected void applyPlugin(String plugin) {
+		Map<String, String> map = Maps.newHashMap();
+		map.put("plugin", plugin);
+		project.apply(map);
 	}
 }

@@ -9,7 +9,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		project.apply plugin: 'com.gradle.build-scan'
+		applyPlugin("com.gradle.build-scan");
 
 		project.task('verifyJdroidTools', type: ToolsVerificationTask)
 		project.task('closeJdroidGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyJdroidTools'
@@ -31,7 +31,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.getAllprojects().each {
 
 			final eachProject = it
-			eachProject.group = 'com.jdroidtools'
+			eachProject.setGroup("com.jdroidtools");
 
 			eachProject.apply plugin: 'maven'
 			eachProject.apply plugin: 'signing'
