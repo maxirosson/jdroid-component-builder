@@ -1,13 +1,12 @@
 package com.jdroid.component.builder
 
 import com.jdroid.component.builder.config.ProjectConfigSyncTask
-import com.jdroid.component.builder.config.ProjectConfigValidationTask
+import com.jdroid.component.builder.config.ProjectConfigVerificationTask
 import com.jdroid.component.builder.tasks.CloseGitHubMilestoneTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
 import com.jdroid.component.builder.tasks.GenerateChangelogTask
 import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
 import com.jdroid.component.builder.tasks.ToolsVerificationTask
-import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.artifacts.maven.MavenDeployment
 
@@ -18,15 +17,15 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		applyPlugin("com.gradle.build-scan");
 
-		project.task('verifyJdroidTools', type: ToolsVerificationTask)
-		project.task('closeJdroidGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'verifyJdroidTools'
+		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
+		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
+
+		project.task('closeJdroidGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'checkJdroidProjectConfig'
 		project.task('createJdroidGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeJdroidGitHubMilestone'
 		project.task('generateJdroidChangelog', type: GenerateChangelogTask).dependsOn 'createJdroidGitHubRelease'
 
 		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
 
-		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
-		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigValidationTask.class);
 
 		addUploadConfiguration()
 
