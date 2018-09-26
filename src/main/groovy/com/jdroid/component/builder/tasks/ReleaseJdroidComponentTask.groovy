@@ -32,7 +32,7 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		execute('git pull', projectDir)
 
 		execute('./gradlew clean :checkJdroidProjectConfig :closeJdroidGitHubMilestone :createJdroidGitHubRelease ' +
-				':generateJdroidChangelog ugploadArchives --refresh-dependencies --stacktrace -PSNAPSHOT=false ' +
+				':generateJdroidChangelog uploadArchives --refresh-dependencies --stacktrace -PSNAPSHOT=false ' +
 				'-PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true -PACCEPT_SNAPSHOT_DEPENDENCIES=false', projectDir)
 	}
 }
