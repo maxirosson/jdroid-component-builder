@@ -54,7 +54,7 @@ dependencies {
 	compile 'com.jdroidtools:jdroid-java-github:1.0.0'
 
 	// https://plugins.gradle.org/plugin/com.gradle.build-scan
-	compile 'com.gradle:build-scan-plugin:1.12.1'
+	compile 'com.gradle:build-scan-plugin:1.16'
 
 	testCompile 'junit:junit:4.12'
 }
