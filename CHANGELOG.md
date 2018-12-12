@@ -1,7 +1,19 @@
 # Change Log
 
+## [v1.1.0](https://github.com/maxirosson/jdroid-component-builder/tree/v1.1.0) (2018-12-12)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v1.0.2...v1.1.0)
+
+**Implemented enhancements:**
+
+- Add task to sync common project configuration [\#35](https://github.com/maxirosson/jdroid-component-builder/issues/35)
+- Automatic configuration of gradle version [\#9](https://github.com/maxirosson/jdroid-component-builder/issues/9)
+
 ## [v1.0.2](https://github.com/maxirosson/jdroid-component-builder/tree/v1.0.2) (2018-04-11)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v1.0.1...v1.0.2)
+
+**Fixed bugs:**
+
+- SNAPSHOT classifier should be removed when releasing [\#34](https://github.com/maxirosson/jdroid-component-builder/issues/34)
 
 ## [v1.0.1](https://github.com/maxirosson/jdroid-component-builder/tree/v1.0.1) (2018-04-10)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v1.0.0...v1.0.1)
