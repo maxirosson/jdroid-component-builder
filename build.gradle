@@ -12,7 +12,7 @@ buildscript {
 	dependencies {
 
 		// https://github.com/maxirosson/jdroid-component-builder/blob/master/CHANGELOG.md
-		classpath 'com.jdroidtools:jdroid-component-builder:1.0.2'
+		classpath 'com.jdroidtools:jdroid-component-builder:1.1.0-SNAPSHOT'
 
 		// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
 		classpath 'com.jdroidtools:jdroid-gradle-project-plugin:1.1.0'
