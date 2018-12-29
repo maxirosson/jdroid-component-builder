@@ -11,7 +11,7 @@ public abstract class AbstractGitHubTask extends AbstractTask {
 		GitHubClient client = new GitHubClient();
 		client.setSerializeNulls(false);
 		client.setOAuth2Token(getGitHubWriteToken());
-		return client
+		return client;
 	}
 
 	public IRepositoryIdProvider getIRepositoryIdProvider() {
@@ -55,9 +55,9 @@ public abstract class AbstractGitHubTask extends AbstractTask {
 
 	// The path to a directory where the code will be checked out and the assemblies would be generated. For example: /home/user/build
 	public File getBuildDirectory() {
-		String buildDirectory = project.jdroidComponentBuilder.getProp('JDROID_BUILD_DIRECTORY')
+		String buildDirectory = project.jdroidComponentBuilder.getProp('JDROID_BUILD_DIRECTORY');
 		if (buildDirectory == null) {
-			throw new UnexpectedException("The JDROID_BUILD_DIRECTORY parameter is required")
+			throw new UnexpectedException("The JDROID_BUILD_DIRECTORY parameter is required");
 		}
 		File buildDirectoryFile = new File(buildDirectory)
 		if (!buildDirectoryFile.exists()) {

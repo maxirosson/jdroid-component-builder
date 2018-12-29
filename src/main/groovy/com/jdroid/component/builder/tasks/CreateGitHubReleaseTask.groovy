@@ -15,17 +15,17 @@ public class CreateGitHubReleaseTask extends AbstractGitHubTask {
 	protected void onExecute() throws IOException {
 		GitHubClient client = createGitHubClient();
 
-		String tagName = "v${project.version}"
+		String tagName = "v" + project.getVersion()
 
-		IRepositoryIdProvider repositoryIdProvider = getIRepositoryIdProvider()
-		ReleaseService releaseService = new ReleaseService(client)
+		IRepositoryIdProvider repositoryIdProvider = getIRepositoryIdProvider();
+		ReleaseService releaseService = new ReleaseService(client);
 		Release release = releaseService.getReleaseByTagName(repositoryIdProvider, tagName);
 		if (release == null) {
-			String releaseNotes = getReleaseNotes()
+			String releaseNotes = getReleaseNotes();
 			createRelease(releaseService, repositoryIdProvider, tagName, releaseNotes);
-			log('Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]')
+			log('Verify that the release is present on Releases [' + getRepositoryUrl() + '/releases]');
 		} else {
-			getLogger().warn('Skipping ' + tagName + ' release creation because it already exists.')
+			getLogger().warn('Skipping ' + tagName + ' release creation because it already exists.');
 		}
 	}
 
