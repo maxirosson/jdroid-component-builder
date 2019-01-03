@@ -19,11 +19,12 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
 		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
 
-		project.task('closeJdroidGitHubMilestone', type: CloseGitHubMilestoneTask).dependsOn 'checkJdroidProjectConfig'
-		project.task('createJdroidGitHubRelease', type: CreateGitHubReleaseTask).dependsOn 'closeJdroidGitHubMilestone'
-		project.task('generateJdroidChangelog', type: GenerateChangelogTask).dependsOn 'createJdroidGitHubRelease'
+		project.getTasks().findByName("check").dependsOn("checkJdroidProjectConfig");
+		project.getTasks().create("closeJdroidGitHubMilestone", CloseGitHubMilestoneTask.class).dependsOn("checkJdroidProjectConfig");
+		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class).dependsOn("closeJdroidGitHubMilestone");
+		project.getTasks().create("generateJdroidChangelog", GenerateChangelogTask.class).dependsOn("createJdroidGitHubRelease");
 
-		project.task('releaseJdroidComponent', type: ReleaseJdroidComponentTask)
+		project.getTasks().create("releaseJdroidComponent", ReleaseJdroidComponentTask.class);
 
 
 		addUploadConfiguration()
