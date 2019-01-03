@@ -7,6 +7,7 @@ import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
 import com.jdroid.component.builder.tasks.GenerateChangelogTask
 import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.maven.MavenDeployment
 
 public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
@@ -18,14 +19,18 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
 		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
-
-		project.tasks.'check'.dependsOn("checkJdroidProjectConfig");
 		project.getTasks().create("closeJdroidGitHubMilestone", CloseGitHubMilestoneTask.class).dependsOn("checkJdroidProjectConfig");
 		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class).dependsOn("closeJdroidGitHubMilestone");
 		project.getTasks().create("generateJdroidChangelog", GenerateChangelogTask.class).dependsOn("createJdroidGitHubRelease");
 
 		project.getTasks().create("releaseJdroidComponent", ReleaseJdroidComponentTask.class);
 
+		project.afterEvaluate {
+			Task checkTask = project.getTasks().findByName("check");
+			if (checkTask != null) {
+				checkTask.dependsOn("checkJdroidProjectConfig");
+			}
+		}
 
 		addUploadConfiguration()
 
