@@ -9,6 +9,7 @@ import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.maven.MavenDeployment
+import org.gradle.api.publish.maven.MavenPublication
 
 public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
@@ -32,11 +33,152 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			}
 		}
 
+		addPublishingConfiguration()
 		addUploadConfiguration()
 
 		project.buildScan {
 			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
 			termsOfServiceAgree = 'yes'
+		}
+	}
+
+	private void addPublishingConfiguration() {
+		project.getAllprojects().each {
+
+			final eachProject = it
+			eachProject.setGroup("com.jdroidtools");
+
+			eachProject.apply plugin: 'maven-publish'
+			eachProject.apply plugin: 'signing'
+
+			Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
+			String localMavenRepo = jdroidComponentBuilder.getStringProp('LOCAL_MAVEN_REPO')
+
+			String projectName = jdroidComponentBuilder.getStringProp('PROJECT_NAME')
+			if (projectName == null) {
+				projectName = jdroidComponentBuilder.getProp(eachProject.rootProject, 'PROJECT_NAME')
+				if (projectName == null) {
+					projectName = eachProject.getName()
+				}
+			}
+
+			if (localUpload && localMavenRepo == null) {
+				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping publish configuration")
+			} else {
+
+				eachProject.afterEvaluate {
+
+					if (eachProject.ext.has('PACKAGING')) {
+						if (eachProject.ext.PACKAGING == 'jar') {
+							def javaPublicationsClosure = {
+								javaLibrary(MavenPublication) {
+									from eachProject.components.java
+									artifact eachProject.sourcesJar
+									artifact eachProject.javadocJar
+									pom {
+										name = projectName
+										description = eachProject.description != null ? eachProject.description : eachProject.rootProject.description
+										packaging = eachProject.ext.PACKAGING
+										url = 'https://jdroidtools.com'
+										inceptionYear = '2011'
+										organization {
+											name = 'Jdroid'
+											url = 'https://jdroidtools.com'
+										}
+										licenses {
+											license {
+												name = 'The Apache License, Version 2.0'
+												url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+												distribution = 'repo'
+											}
+										}
+										developers {
+											developer {
+												name = 'Maxi Rosson'
+												email = 'contact@jdroidtools.com'
+											}
+										}
+										scm {
+											connection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+											developerConnection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+											url = jdroidComponentBuilder.getRepositorySshUrl()
+										}
+										issueManagement {
+											system = 'GitHub'
+											url = jdroidComponentBuilder.getRepositoryUrl() + '/issues'
+										}
+									}
+								}
+							}
+							javaPublicationsClosure.setDelegate(eachProject)
+
+							eachProject.publishing {
+								publications(javaPublicationsClosure)
+							}
+
+							if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
+								eachProject.signing {
+									required { !eachProject.version.isSnapshot }
+									sign eachProject.publishing.publications.javaLibrary
+								}
+							}
+
+						} else if (eachProject.ext.PACKAGING == 'war') {
+							def javaWarPublicationsClosure = {
+								javaWar(MavenPublication) {
+									from eachProject.components.web
+									artifact eachProject.sourcesJar
+									artifact eachProject.javadocJar
+								}
+							}
+							javaWarPublicationsClosure.setDelegate(eachProject)
+
+							eachProject.publishing {
+								publications(javaWarPublicationsClosure)
+							}
+
+							if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
+								eachProject.signing {
+									required { !eachProject.version.isSnapshot }
+									sign eachProject.publishing.publications.javaWar
+								}
+							}
+
+						} else {
+							eachProject.getLogger().warn("Unsupported PACKAGING property: " + eachProject.ext.PACKAGING)
+						}
+
+						// TODO Add aar support
+					}
+
+					eachProject.publishing {
+
+						if (localUpload) {
+							repositories {
+								maven {
+									name = "localMavenRepo"
+									url = eachProject.uri(localMavenRepo)
+								}
+							}
+						} else {
+							repositories {
+								maven {
+									name = "nexusMavenRepo"
+									if (eachProject.version.isSnapshot) {
+										url = "https://oss.sonatype.org/content/repositories/snapshots/"
+									} else {
+										url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+									}
+									credentials {
+										username getNexusUsername()
+										password getNexusPassword()
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
