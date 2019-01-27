@@ -10,6 +10,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.maven.MavenDeployment
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.tasks.bundling.Jar
 
 public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
@@ -69,45 +70,69 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 				eachProject.afterEvaluate {
 
 					if (eachProject.ext.has('PACKAGING')) {
+
+						Boolean isJavaDocPublicationEnabled = jdroidComponentBuilder.getBooleanProp("JAVADOC_PUBLICATION_ENABLED", true)
+						if (isJavaDocPublicationEnabled) {
+							eachProject.task('javadocJar', type: Jar) {
+								classifier = 'javadoc'
+								from eachProject.javadoc
+							}
+						}
+
+						Boolean isSourcesPublicationEnabled = jdroidComponentBuilder.getBooleanProp("SOURCES_PUBLICATION_ENABLED", true)
+						if (isSourcesPublicationEnabled) {
+							eachProject.task('sourcesJar', type: Jar) {
+								classifier = 'sources'
+								from eachProject.sourceSets.main.allSource
+							}
+						}
+
+						def pomClosure = {
+							name = projectName
+							description = eachProject.description != null ? eachProject.description : eachProject.rootProject.description
+							packaging = eachProject.ext.PACKAGING
+							url = 'https://jdroidtools.com'
+							inceptionYear = '2011'
+							organization {
+								name = 'Jdroid'
+								url = 'https://jdroidtools.com'
+							}
+							licenses {
+								license {
+									name = 'The Apache License, Version 2.0'
+									url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+									distribution = 'repo'
+								}
+							}
+							developers {
+								developer {
+									name = 'Maxi Rosson'
+									email = 'contact@jdroidtools.com'
+								}
+							}
+							scm {
+								connection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+								developerConnection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
+								url = jdroidComponentBuilder.getRepositorySshUrl()
+							}
+							issueManagement {
+								system = 'GitHub'
+								url = jdroidComponentBuilder.getRepositoryUrl() + '/issues'
+							}
+						}
+
 						if (eachProject.ext.PACKAGING == 'jar') {
 							def javaPublicationsClosure = {
 								javaLibrary(MavenPublication) {
 									from eachProject.components.java
-									artifact eachProject.sourcesJar
-									artifact eachProject.javadocJar
-									pom {
-										name = projectName
-										description = eachProject.description != null ? eachProject.description : eachProject.rootProject.description
-										packaging = eachProject.ext.PACKAGING
-										url = 'https://jdroidtools.com'
-										inceptionYear = '2011'
-										organization {
-											name = 'Jdroid'
-											url = 'https://jdroidtools.com'
-										}
-										licenses {
-											license {
-												name = 'The Apache License, Version 2.0'
-												url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-												distribution = 'repo'
-											}
-										}
-										developers {
-											developer {
-												name = 'Maxi Rosson'
-												email = 'contact@jdroidtools.com'
-											}
-										}
-										scm {
-											connection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
-											developerConnection = 'scm:git:' + jdroidComponentBuilder.getRepositorySshUrl()
-											url = jdroidComponentBuilder.getRepositorySshUrl()
-										}
-										issueManagement {
-											system = 'GitHub'
-											url = jdroidComponentBuilder.getRepositoryUrl() + '/issues'
-										}
+									if (isSourcesPublicationEnabled) {
+										artifact eachProject.sourcesJar
 									}
+									if (isJavaDocPublicationEnabled) {
+										artifact eachProject.javadocJar
+									}
+									pom(pomClosure)
+
 								}
 							}
 							javaPublicationsClosure.setDelegate(eachProject)
@@ -127,8 +152,13 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 							def javaWarPublicationsClosure = {
 								javaWar(MavenPublication) {
 									from eachProject.components.web
-									artifact eachProject.sourcesJar
-									artifact eachProject.javadocJar
+									if (isSourcesPublicationEnabled) {
+										artifact eachProject.sourcesJar
+									}
+									if (isJavaDocPublicationEnabled) {
+										artifact eachProject.javadocJar
+									}
+									pom(pomClosure)
 								}
 							}
 							javaWarPublicationsClosure.setDelegate(eachProject)
@@ -149,34 +179,35 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 						}
 
 						// TODO Add aar support
-					}
 
-					eachProject.publishing {
+						eachProject.publishing {
 
-						if (localUpload) {
-							repositories {
-								maven {
-									name = "localMavenRepo"
-									url = eachProject.uri(localMavenRepo)
-								}
-							}
-						} else {
-							repositories {
-								maven {
-									name = "nexusMavenRepo"
-									if (eachProject.version.isSnapshot) {
-										url = "https://oss.sonatype.org/content/repositories/snapshots/"
-									} else {
-										url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+							if (localUpload) {
+								repositories {
+									maven {
+										name = "localMavenRepo"
+										url = eachProject.uri(localMavenRepo)
 									}
-									credentials {
-										username getNexusUsername()
-										password getNexusPassword()
+								}
+							} else {
+								repositories {
+									maven {
+										name = "nexusMavenRepo"
+										if (eachProject.version.isSnapshot) {
+											url = "https://oss.sonatype.org/content/repositories/snapshots/"
+										} else {
+											url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+										}
+										credentials {
+											username getNexusUsername()
+											password getNexusPassword()
+										}
 									}
 								}
 							}
 						}
 					}
+
 				}
 			}
 		}
