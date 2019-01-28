@@ -11,6 +11,7 @@ import org.gradle.api.Task
 import org.gradle.api.artifacts.maven.MavenDeployment
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.tasks.bundling.Jar
+import org.gradle.api.tasks.javadoc.Javadoc
 
 public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
@@ -34,7 +35,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			}
 		}
 
-		addPublishingConfiguration()
+		//addPublishingConfiguration()
 		addUploadConfiguration()
 
 		project.buildScan {
@@ -71,22 +72,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 					if (eachProject.ext.has('PACKAGING')) {
 
-						Boolean isJavaDocPublicationEnabled = jdroidComponentBuilder.getBooleanProp("JAVADOC_PUBLICATION_ENABLED", true)
-						if (isJavaDocPublicationEnabled) {
-							eachProject.task('javadocJar', type: Jar) {
-								classifier = 'javadoc'
-								from eachProject.javadoc
-							}
-						}
-
-						Boolean isSourcesPublicationEnabled = jdroidComponentBuilder.getBooleanProp("SOURCES_PUBLICATION_ENABLED", true)
-						if (isSourcesPublicationEnabled) {
-							eachProject.task('sourcesJar', type: Jar) {
-								classifier = 'sources'
-								from eachProject.sourceSets.main.allSource
-							}
-						}
-
 						def pomClosure = {
 							name = projectName
 							description = eachProject.description != null ? eachProject.description : eachProject.rootProject.description
@@ -122,6 +107,23 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 						}
 
 						if (eachProject.ext.PACKAGING == 'jar') {
+
+							Boolean isJavaDocPublicationEnabled = jdroidComponentBuilder.getBooleanProp("JAVADOC_PUBLICATION_ENABLED", true)
+							if (isJavaDocPublicationEnabled) {
+								eachProject.task('javadocJar', type: Jar) {
+									classifier = 'javadoc'
+									from eachProject.javadoc
+								}
+							}
+
+							Boolean isSourcesPublicationEnabled = jdroidComponentBuilder.getBooleanProp("SOURCES_PUBLICATION_ENABLED", true)
+							if (isSourcesPublicationEnabled) {
+								eachProject.task('sourcesJar', type: Jar) {
+									classifier = 'sources'
+									from eachProject.sourceSets.main.allSource
+								}
+							}
+
 							def javaPublicationsClosure = {
 								javaLibrary(MavenPublication) {
 									from eachProject.components.java
@@ -149,6 +151,23 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 							}
 
 						} else if (eachProject.ext.PACKAGING == 'war') {
+
+							Boolean isJavaDocPublicationEnabled = jdroidComponentBuilder.getBooleanProp("JAVADOC_PUBLICATION_ENABLED", true)
+							if (isJavaDocPublicationEnabled) {
+								eachProject.task('javadocJar', type: Jar) {
+									classifier = 'javadoc'
+									from eachProject.javadoc
+								}
+							}
+
+							Boolean isSourcesPublicationEnabled = jdroidComponentBuilder.getBooleanProp("SOURCES_PUBLICATION_ENABLED", true)
+							if (isSourcesPublicationEnabled) {
+								eachProject.task('sourcesJar', type: Jar) {
+									classifier = 'sources'
+									from eachProject.sourceSets.main.allSource
+								}
+							}
+
 							def javaWarPublicationsClosure = {
 								javaWar(MavenPublication) {
 									from eachProject.components.web
@@ -173,12 +192,80 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 									sign eachProject.publishing.publications.javaWar
 								}
 							}
+						} else if (eachProject.ext.PACKAGING == 'aar') {
 
+							Boolean isJavaDocPublicationEnabled = jdroidComponentBuilder.getBooleanProp("JAVADOC_PUBLICATION_ENABLED", true)
+							if (isJavaDocPublicationEnabled) {
+								eachProject.task('androidJavadocs', type: Javadoc) {
+									source = eachProject.android.sourceSets.main.java.srcDirs
+									classpath += eachProject.files(eachProject.android.getBootClasspath().join(File.pathSeparator))
+									eachProject.android.libraryVariants.all { variant ->
+										if (variant.name == 'release') {
+											owner.classpath += variant.javaCompile.classpath
+										}
+									}
+									exclude '**/R.html', '**/R.*.html', '**/index.html'
+								}
+
+								eachProject.task('androidJavadocsJar', type: Jar, dependsOn: 'androidJavadocs') {
+									classifier = 'javadoc'
+									from eachProject.androidJavadocs.destinationDir
+								}
+							}
+
+							Boolean isSourcesPublicationEnabled = jdroidComponentBuilder.getBooleanProp("SOURCES_PUBLICATION_ENABLED", true)
+							if (isSourcesPublicationEnabled) {
+								eachProject.task('androidSourcesJar', type: Jar) {
+									classifier = 'sources'
+									from eachProject.android.sourceSets.main.java.srcDirs
+								}
+							}
+
+							def androidDebugPublicationsClosure = {
+								androidDebugLibrary(MavenPublication) {
+									artifact eachProject.bundleDebugAar
+									if (isSourcesPublicationEnabled) {
+										artifact eachProject.androidSourcesJar
+									}
+									if (isJavaDocPublicationEnabled) {
+										artifact eachProject.androidJavadocsJar
+									}
+									pom(pomClosure)
+
+								}
+							}
+							androidDebugPublicationsClosure.setDelegate(eachProject)
+
+							def androidReleasePublicationsClosure = {
+								androidReleaseLibrary(MavenPublication) {
+									artifact eachProject.bundleReleaseAar
+									if (isSourcesPublicationEnabled) {
+										artifact eachProject.androidSourcesJar
+									}
+									if (isJavaDocPublicationEnabled) {
+										artifact eachProject.androidJavadocsJar
+									}
+									pom(pomClosure)
+
+								}
+							}
+							androidReleasePublicationsClosure.setDelegate(eachProject)
+
+							eachProject.publishing {
+								publications(androidDebugPublicationsClosure)
+								publications(androidReleasePublicationsClosure)
+							}
+
+							if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
+								eachProject.signing {
+									required { !eachProject.version.isSnapshot }
+									sign eachProject.publishing.publications.androidDebugLibrary
+									sign eachProject.publishing.publications.androidReleaseLibrary
+								}
+							}
 						} else {
 							eachProject.getLogger().warn("Unsupported PACKAGING property: " + eachProject.ext.PACKAGING)
 						}
-
-						// TODO Add aar support
 
 						eachProject.publishing {
 
