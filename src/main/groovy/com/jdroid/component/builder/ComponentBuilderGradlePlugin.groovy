@@ -35,7 +35,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			}
 		}
 
-		//addPublishingConfiguration()
+		addPublishingConfiguration()
 		addUploadConfiguration()
 
 		project.buildScan {
@@ -51,7 +51,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			eachProject.setGroup("com.jdroidtools");
 
 			eachProject.apply plugin: 'maven-publish'
-			eachProject.apply plugin: 'signing'
 
 			Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
 			String localMavenRepo = jdroidComponentBuilder.getStringProp('LOCAL_MAVEN_REPO')
@@ -68,7 +67,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping publish configuration")
 			} else {
 
-				eachProject.afterEvaluate {
+				//eachProject.afterEvaluate {
 
 					if (eachProject.ext.has('PACKAGING')) {
 
@@ -221,46 +220,34 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 								}
 							}
 
-							def androidDebugPublicationsClosure = {
-								androidDebugLibrary(MavenPublication) {
-									artifact eachProject.bundleDebugAar
+							def androidPublicationsClosure = {
+								androidLibrary(MavenPublication) {
 									if (isSourcesPublicationEnabled) {
-										artifact eachProject.androidSourcesJar
+										artifact source: eachProject.androidSourcesJar, classifier: 'sources'
 									}
 									if (isJavaDocPublicationEnabled) {
-										artifact eachProject.androidJavadocsJar
+										artifact source: eachProject.androidJavadocsJar, classifier: 'javadoc'
 									}
-									pom(pomClosure)
+									artifact source: eachProject.bundleDebugAar, classifier: 'debug'
+									artifact source: eachProject.bundleReleaseAar, classifier: 'release'
 
+									pom(pomClosure)
 								}
 							}
-							androidDebugPublicationsClosure.setDelegate(eachProject)
-
-							def androidReleasePublicationsClosure = {
-								androidReleaseLibrary(MavenPublication) {
-									artifact eachProject.bundleReleaseAar
-									if (isSourcesPublicationEnabled) {
-										artifact eachProject.androidSourcesJar
-									}
-									if (isJavaDocPublicationEnabled) {
-										artifact eachProject.androidJavadocsJar
-									}
-									pom(pomClosure)
-
-								}
-							}
-							androidReleasePublicationsClosure.setDelegate(eachProject)
+							androidPublicationsClosure.setDelegate(eachProject)
 
 							eachProject.publishing {
-								publications(androidDebugPublicationsClosure)
-								publications(androidReleasePublicationsClosure)
+								publications(androidPublicationsClosure)
 							}
 
 							if (jdroidComponentBuilder.getBooleanProp('SIGNING_ENABLED', true)) {
-								eachProject.signing {
-									required { !eachProject.version.isSnapshot }
-									sign eachProject.publishing.publications.androidDebugLibrary
-									sign eachProject.publishing.publications.androidReleaseLibrary
+								eachProject.apply plugin: 'signing'
+								eachProject.afterEvaluate {
+
+									eachProject.signing {
+										required { !eachProject.version.isSnapshot }
+										sign eachProject.publishing.publications.androidLibrary
+									}
 								}
 							}
 						} else {
@@ -295,7 +282,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 						}
 					}
 
-				}
+				//}
 			}
 		}
 	}
