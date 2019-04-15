@@ -35,8 +35,10 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			}
 		}
 
+		// https://docs.gradle.org/current/userguide/publishing_overview.html
+		// https://docs.gradle.org/current/userguide/publishing_maven.html
 		addPublishingConfiguration()
-		addUploadConfiguration()
+		//addUploadConfiguration()
 
 		project.buildScan {
 			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
