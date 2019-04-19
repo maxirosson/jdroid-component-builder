@@ -60,8 +60,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 				eachProject.publishing.repositories {
 
 					if (localUpload) {
-						println("Added local maven repo for publishing")
-
 						maven {
 							name = "localMavenRepo"
 							url = eachProject.uri(localMavenRepo)
