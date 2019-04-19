@@ -37,6 +37,7 @@ buildscript {
 			exclude group: 'com.gradle', module: 'build-scan-plugin'
 		}
 
+		// TODO Remove this line (and the exclude) when upgrading to jdroid-component-builder:2.0.0
 		classpath("com.gradle:build-scan-plugin:2.2.1")
 
 		// https://github.com/maxirosson/jdroid-gradle-plugin/blob/master/CHANGELOG.md
