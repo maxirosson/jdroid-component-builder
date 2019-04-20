@@ -57,24 +57,26 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			if (localUpload && localMavenRepo == null) {
 				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping publish configuration")
 			} else {
-				eachProject.publishing.repositories {
+				eachProject.afterEvaluate {
+					eachProject.publishing.repositories {
 
-					if (localUpload) {
-						maven {
-							name = "localMavenRepo"
-							url = eachProject.uri(localMavenRepo)
-						}
-					} else {
-						maven {
-							name = "nexusMavenRepo"
-							if (eachProject.version.isSnapshot) {
-								url = "https://oss.sonatype.org/content/repositories/snapshots/"
-							} else {
-								url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+						if (localUpload) {
+							maven {
+								name = "localMavenRepo"
+								url = eachProject.uri(localMavenRepo)
 							}
-							credentials {
-								username getNexusUsername()
-								password getNexusPassword()
+						} else {
+							maven {
+								name = "nexusMavenRepo"
+								if (eachProject.version.isSnapshot) {
+									url = "https://oss.sonatype.org/content/repositories/snapshots/"
+								} else {
+									url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+								}
+								credentials {
+									username getNexusUsername()
+									password getNexusPassword()
+								}
 							}
 						}
 					}
