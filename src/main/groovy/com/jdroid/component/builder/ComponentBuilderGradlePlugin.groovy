@@ -59,23 +59,17 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			} else {
 				eachProject.afterEvaluate {
 					eachProject.publishing.repositories {
-
-						println("**** 1. Adding publishing repositories")
 						if (localUpload) {
-							println("**** 2. Adding local repository")
 							maven {
 								name = "localMavenRepo"
 								url = eachProject.uri(localMavenRepo)
 							}
 						} else {
-							println("**** 2. Adding nexus repository")
 							maven {
 								name = "nexusMavenRepo"
 								if (eachProject.version.isSnapshot) {
-									println("**** 3. Adding nexus snapshot repository")
 									url = "https://oss.sonatype.org/content/repositories/snapshots/"
 								} else {
-									println("**** 4. Adding nexus release repository")
 									url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
 								}
 								credentials {
