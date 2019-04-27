@@ -47,6 +47,11 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			final eachProject = it
 			eachProject.setGroup("com.jdroidtools");
 
+			eachProject.ext.set("PUBLICATION_CONFIGURATION_ENABLED", true);
+			eachProject.ext.set("JAVADOC_PUBLICATION_ENABLED", true);
+			eachProject.ext.set("SOURCES_PUBLICATION_ENABLED", true);
+			eachProject.ext.set("SIGNING_PUBLICATION_ENABLED", true);
+
 			if (!eachProject.plugins.hasPlugin("maven-publish")) {
 				eachProject.apply plugin: 'maven-publish'
 			}
