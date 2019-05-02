@@ -72,7 +72,8 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 						} else {
 							maven {
 								name = "nexusMavenRepo"
-								if (eachProject.version.isSnapshot) {
+								Boolean isSnapshot = ReflectionUtils.invokeMethod(eachProject.version, "isSnapshot")
+								if (isSnapshot == null || isSnapshot) {
 									url = "https://oss.sonatype.org/content/repositories/snapshots/"
 								} else {
 									url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
