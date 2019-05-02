@@ -6,6 +6,7 @@ import com.jdroid.component.builder.tasks.CloseGitHubMilestoneTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
 import com.jdroid.component.builder.tasks.GenerateChangelogTask
 import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
+import com.jdroid.component.builder.commons.ReflectionUtils
 import org.gradle.api.Project
 import org.gradle.api.Task
 
