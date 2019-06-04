@@ -4,9 +4,7 @@ public enum ProjectConfig {
 
 	CODE_OF_CONDUCT("/CODE_OF_CONDUCT.md"),
 	LICENSE("/LICENSE.md"),
-	CONTRIBUTING("/github/CONTRIBUTING.md", "/.github/CONTRIBUTING.md"),
-	GRADLE_WRAPPER_PROPERTIES("/gradle/wrapper/gradle-wrapper.properties"),
-	EDITOR_CONFIG("/.editorconfig");
+	CONTRIBUTING("/github/CONTRIBUTING.md", "/.github/CONTRIBUTING.md");
 
 	private String source;
 	private String target;
