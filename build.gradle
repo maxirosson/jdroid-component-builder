@@ -105,7 +105,7 @@ dependencies {
 gradlePlugin {
 	plugins {
 		componentBuilderPlugin {
-			id = "com.jdroid.component.builder"
+			id = "com.jdroidtools.component.builder"
 			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
 		}
 	}
