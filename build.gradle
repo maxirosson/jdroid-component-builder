@@ -51,8 +51,8 @@ ext.KOTLIN_ENABLED = false
 // https://docs.gradle.org/current/userguide/javaGradle_plugin.html
 apply plugin: "java-gradle-plugin"
 
-apply plugin: "com.jdroid.component.builder"
-apply plugin: "com.jdroid.gradle.plugin"
+apply plugin: "com.jdroidtools.component.builder"
+apply plugin: "com.jdroidtools.gradle.plugin"
 
 description = "Gradle Plugin to build Jdroid Components"
 
