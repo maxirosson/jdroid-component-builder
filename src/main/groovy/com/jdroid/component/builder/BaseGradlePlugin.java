@@ -1,10 +1,9 @@
 package com.jdroid.component.builder;
 
-import com.jdroid.java.collections.Maps;
-
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BaseGradlePlugin implements Plugin<Project> {
@@ -24,7 +23,7 @@ public class BaseGradlePlugin implements Plugin<Project> {
 	}
 
 	protected void applyPlugin(String plugin) {
-		Map<String, String> map = Maps.newHashMap();
+		Map<String, String> map = new HashMap<>();
 		map.put("plugin", plugin);
 		project.apply(map);
 	}
