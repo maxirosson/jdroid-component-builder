@@ -2,7 +2,7 @@ version: 2
 
 references:
 
-    ## Workspace
+  ## Workspace
 
   workspace: &workspace
     ~/workspace
