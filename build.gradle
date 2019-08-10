@@ -45,6 +45,7 @@ version = "2.1.0"
 ext.JDROID_GITHUB_REPOSITORY_NAME = "jdroid-component-builder"
 
 ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
+ext.ARTIFACT_ID = "jdroid-component-builder"
 
 ext.KOTLIN_ENABLED = false
 
