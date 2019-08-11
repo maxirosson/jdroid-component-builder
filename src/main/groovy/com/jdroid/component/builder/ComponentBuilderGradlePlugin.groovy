@@ -52,6 +52,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			eachProject.ext.set("JAVADOC_PUBLICATION_ENABLED", true);
 			eachProject.ext.set("SOURCES_PUBLICATION_ENABLED", true);
 			eachProject.ext.set("SIGNING_PUBLICATION_ENABLED", true);
+			eachProject.ext.set("GITHUB_REPOSITORY_OWNER", "maxirosson");
 
 			if (!eachProject.plugins.hasPlugin("maven-publish")) {
 				eachProject.apply plugin: 'maven-publish'
