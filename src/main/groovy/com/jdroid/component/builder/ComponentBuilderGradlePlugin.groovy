@@ -53,6 +53,8 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			eachProject.ext.set("SOURCES_PUBLICATION_ENABLED", true);
 			eachProject.ext.set("SIGNING_PUBLICATION_ENABLED", true);
 			eachProject.ext.set("GITHUB_REPOSITORY_OWNER", "maxirosson");
+			eachProject.ext.set("GITHUB_USER_NAME", "jdroid-ci");
+			eachProject.ext.set("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
 
 			if (!eachProject.plugins.hasPlugin("maven-publish")) {
 				eachProject.apply plugin: 'maven-publish'
