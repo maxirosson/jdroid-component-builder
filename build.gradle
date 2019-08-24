@@ -5,10 +5,10 @@ buildscript {
 				releasesOnly()
 			}
 		}
-		String localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
+		def localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
 		boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
 		if (isLocalMavenRepoEnabled) {
-			String localMavenRepo = project.hasProperty("LOCAL_MAVEN_REPO") ? project.ext.get("LOCAL_MAVEN_REPO") : System.getenv("LOCAL_MAVEN_REPO")
+			def localMavenRepo = project.hasProperty("LOCAL_MAVEN_REPO") ? project.ext.get("LOCAL_MAVEN_REPO") : System.getenv("LOCAL_MAVEN_REPO")
 			if (localMavenRepo != null) {
 				maven {
 					url = localMavenRepo
@@ -30,17 +30,16 @@ buildscript {
 		mavenCentral()
 		gradlePluginPortal()
 	}
-	apply from: "$rootDir/build_dependencies.gradle"
 	dependencies {
-		classpath(libs.jdroid_component_builder)
-		classpath(libs.jdroid_gradle_project_plugin)
+		classpath(BuildLibs.jdroid_component_builder)
+		classpath(BuildLibs.jdroid_gradle_project_plugin)
 	}
 }
 
 version = "2.1.0"
 
 ext.GITHUB_REPOSITORY_NAME = "jdroid-component-builder"
-
+ext.RELEASES_HUB_GRADLE_PLUGIN_ENABLED = true
 ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
 ext.ARTIFACT_ID = "jdroid-component-builder"
 
@@ -51,7 +50,6 @@ apply plugin: "java-gradle-plugin"
 
 apply plugin: "com.jdroidtools.component.builder"
 apply plugin: "com.jdroidtools.gradle.plugin"
-apply from: "$rootDir/dependencies.gradle"
 
 description = "Gradle Plugin to build Jdroid Components"
 
@@ -61,10 +59,10 @@ repositories {
 			releasesOnly()
 		}
 	}
-	String localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
+	def localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
 	boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
 	if (isLocalMavenRepoEnabled) {
-		String localMavenRepo = project.hasProperty("LOCAL_MAVEN_REPO") ? project.ext.get("LOCAL_MAVEN_REPO") : System.getenv("LOCAL_MAVEN_REPO")
+		def localMavenRepo = project.hasProperty("LOCAL_MAVEN_REPO") ? project.ext.get("LOCAL_MAVEN_REPO") : System.getenv("LOCAL_MAVEN_REPO")
 		if (localMavenRepo != null) {
 			maven {
 				url = localMavenRepo
@@ -88,10 +86,10 @@ repositories {
 }
 
 dependencies {
-	compile(libs.jdroid_java_core)
-	compile(libs.jdroid_java_github)
-	compile(libs.build_scan_plugin)
-	testCompile(libs.junit)
+	compile(Libs.jdroid_java_core)
+	compile(Libs.jdroid_java_github)
+	compile(Libs.build_scan_plugin)
+	testCompile(Libs.junit)
 }
 
 gradlePlugin {
