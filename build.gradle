@@ -36,7 +36,7 @@ buildscript {
 	}
 }
 
-version = "2.1.0"
+version = "2.2.0"
 
 ext.GITHUB_REPOSITORY_NAME = "jdroid-component-builder"
 ext.RELEASES_HUB_GRADLE_PLUGIN_ENABLED = true
