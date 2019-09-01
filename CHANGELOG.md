@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.1.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.1.0) (2019-09-01)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v2.0.0...v2.1.0)
+
+**Implemented enhancements:**
+
+- Changed github/git properties [\#41](https://github.com/maxirosson/jdroid-component-builder/issues/41)
+
 ## [v2.0.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.0.0) (2019-06-30)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v1.1.0...v2.0.0)
 
@@ -7,6 +14,10 @@
 
 - Migrate to Maven Publish Plugin [\#38](https://github.com/maxirosson/jdroid-component-builder/issues/38)
 - Upgrade to Gradle 5.x [\#36](https://github.com/maxirosson/jdroid-component-builder/issues/36)
+
+**Closed issues:**
+
+- Migrated plugin id from "com.jdroid.\*\*\*" to "com.jdroidtools.\*\*\*" [\#39](https://github.com/maxirosson/jdroid-component-builder/issues/39)
 
 ## [v1.1.0](https://github.com/maxirosson/jdroid-component-builder/tree/v1.1.0) (2018-12-12)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v1.0.2...v1.1.0)
