@@ -1,12 +1,10 @@
 package com.jdroid.component.builder
 
+
 import com.jdroid.component.builder.config.ProjectConfigSyncTask
 import com.jdroid.component.builder.config.ProjectConfigVerificationTask
-import com.jdroid.component.builder.tasks.CloseGitHubMilestoneTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
-import com.jdroid.component.builder.tasks.GenerateChangelogTask
 import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
-import com.jdroid.component.builder.commons.ReflectionUtils
 import org.gradle.api.Project
 import org.gradle.api.Task
 
@@ -19,9 +17,9 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
 		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
-		project.getTasks().create("closeJdroidGitHubMilestone", CloseGitHubMilestoneTask.class).dependsOn("checkJdroidProjectConfig");
+		project.getTasks().findByName("closeGitHubMilestone").dependsOn("checkJdroidProjectConfig");
 		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class).dependsOn("closeJdroidGitHubMilestone");
-		project.getTasks().create("generateJdroidChangelog", GenerateChangelogTask.class).dependsOn("createJdroidGitHubRelease");
+		project.getTasks().findByName("generateChangelog").dependsOn("createJdroidGitHubRelease");
 
 		project.getTasks().create("releaseJdroidComponent", ReleaseJdroidComponentTask.class);
 
@@ -32,9 +30,16 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			}
 		}
 
-		// https://docs.gradle.org/current/userguide/publishing_overview.html
-		// https://docs.gradle.org/current/userguide/publishing_maven.html
-		addPublishingRepositories()
+		project.getAllprojects().each {
+			it.setGroup("com.jdroidtools");
+			it.ext.set("PUBLICATION_CONFIGURATION_ENABLED", true);
+			it.ext.set("JAVADOC_PUBLICATION_ENABLED", true);
+			it.ext.set("SOURCES_PUBLICATION_ENABLED", true);
+			it.ext.set("SIGNING_PUBLICATION_ENABLED", true);
+			it.ext.set("GITHUB_REPOSITORY_OWNER", "maxirosson");
+			it.ext.set("GITHUB_USER_NAME", "jdroid-ci");
+			it.ext.set("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
+		}
 
 		project.buildScan {
 			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
@@ -42,65 +47,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		}
 	}
 
-	private void addPublishingRepositories() {
-		project.getAllprojects().each {
-
-			final eachProject = it
-			eachProject.setGroup("com.jdroidtools");
-
-			eachProject.ext.set("PUBLICATION_CONFIGURATION_ENABLED", true);
-			eachProject.ext.set("JAVADOC_PUBLICATION_ENABLED", true);
-			eachProject.ext.set("SOURCES_PUBLICATION_ENABLED", true);
-			eachProject.ext.set("SIGNING_PUBLICATION_ENABLED", true);
-			eachProject.ext.set("GITHUB_REPOSITORY_OWNER", "maxirosson");
-			eachProject.ext.set("GITHUB_USER_NAME", "jdroid-ci");
-			eachProject.ext.set("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
-
-			if (!eachProject.plugins.hasPlugin("maven-publish")) {
-				eachProject.apply plugin: 'maven-publish'
-			}
-
-			Boolean localUpload = jdroidComponentBuilder.getBooleanProp('LOCAL_UPLOAD', true)
-			String localMavenRepo = jdroidComponentBuilder.getStringProp('LOCAL_MAVEN_REPO')
-
-			if (localUpload && localMavenRepo == null) {
-				project.logger.warn("LOCAL_MAVEN_REPO property is not defined. Skipping publish configuration")
-			} else {
-				eachProject.afterEvaluate {
-					eachProject.publishing.repositories {
-						if (localUpload) {
-							maven {
-								name = "localMavenRepo"
-								url = eachProject.uri(localMavenRepo)
-							}
-						} else {
-							maven {
-								name = "nexusMavenRepo"
-								Boolean isSnapshot = ReflectionUtils.invokeMethod(eachProject.version, "isSnapshot")
-								if (isSnapshot == null || isSnapshot) {
-									url = "https://oss.sonatype.org/content/repositories/snapshots/"
-								} else {
-									url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-								}
-								credentials {
-									username getNexusUsername()
-									password getNexusPassword()
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private String getNexusUsername() {
-		return jdroidComponentBuilder.getProp('JDROID_NEXUS_USERNAME')
-	}
-
-	private String getNexusPassword() {
-		return jdroidComponentBuilder.getProp('JDROID_NEXUS_PASSWORD')
-	}
 
 	protected Class<? extends ComponentBuilderGradleExtension> getExtensionClass() {
 		return ComponentBuilderGradleExtension.class;
