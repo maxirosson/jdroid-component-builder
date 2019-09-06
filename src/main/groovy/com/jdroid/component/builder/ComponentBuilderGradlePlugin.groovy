@@ -17,13 +17,13 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
 		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
-		project.getTasks().findByName("closeGitHubMilestone").dependsOn("checkJdroidProjectConfig");
-		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class).dependsOn("closeJdroidGitHubMilestone");
-		project.getTasks().findByName("generateChangelog").dependsOn("createJdroidGitHubRelease");
-
+		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class);
 		project.getTasks().create("releaseJdroidComponent", ReleaseJdroidComponentTask.class);
 
 		project.afterEvaluate {
+			project.getTasks().getByName("closeGitHubMilestone").dependsOn("checkJdroidProjectConfig");
+			project.getTasks().getByName("generateChangelog").dependsOn("createJdroidGitHubRelease");
+			project.getTasks().getByName("createJdroidGitHubRelease").dependsOn("closeGitHubMilestone");
 			Task checkTask = project.getTasks().findByName("check");
 			if (checkTask != null) {
 				checkTask.dependsOn("checkJdroidProjectConfig");
