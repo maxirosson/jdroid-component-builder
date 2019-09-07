@@ -36,7 +36,7 @@ buildscript {
 	}
 }
 
-version = "2.2.0"
+version = '2.3.0'
 
 ext.GITHUB_REPOSITORY_NAME = "jdroid-component-builder"
 ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
