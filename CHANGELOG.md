@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.2.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.2.0) (2019-09-07)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v2.1.0...v2.2.0)
+
+**Implemented enhancements:**
+
+- Migrate some common tasks to jdroid gradle plugin [\#42](https://github.com/maxirosson/jdroid-component-builder/issues/42)
+
 ## [v2.1.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.1.0) (2019-09-01)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v2.0.0...v2.1.0)
 
