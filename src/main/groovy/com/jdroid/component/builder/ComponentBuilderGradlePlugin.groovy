@@ -13,8 +13,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 	public void apply(Project project) {
 		super.apply(project)
 
-		applyPlugin("com.gradle.build-scan");
-
 		project.getTasks().create("syncJdroidProjectConfig", ProjectConfigSyncTask.class);
 		project.getTasks().create("checkJdroidProjectConfig", ProjectConfigVerificationTask.class);
 		project.getTasks().create("createJdroidGitHubRelease", CreateGitHubReleaseTask.class);
