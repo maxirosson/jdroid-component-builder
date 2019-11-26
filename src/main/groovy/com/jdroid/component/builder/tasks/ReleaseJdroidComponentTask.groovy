@@ -28,6 +28,7 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 
 		execute('git add -A', projectDir)
 		execute('git stash', projectDir)
+		// TODO Add production branch as a parameter
 		execute('git checkout production', projectDir)
 		execute('git pull', projectDir)
 

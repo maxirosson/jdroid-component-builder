@@ -40,11 +40,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			it.ext.set("GITHUB_USER_NAME", "jdroid-ci");
 			it.ext.set("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
 		}
-
-		project.buildScan {
-			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-			termsOfServiceAgree = 'yes'
-		}
 	}
 
 

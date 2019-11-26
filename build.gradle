@@ -87,7 +87,6 @@ repositories {
 dependencies {
 	compile(Libs.jdroid_java_core)
 	compile(Libs.jdroid_java_github)
-	compile(Libs.build_scan_plugin)
 	testCompile(Libs.junit)
 }
 
