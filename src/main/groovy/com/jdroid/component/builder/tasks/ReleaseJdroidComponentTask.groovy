@@ -32,8 +32,12 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		execute('git checkout production', projectDir)
 		execute('git pull', projectDir)
 
+		// TODO The -Dorg.gradle.internal.publish.checksums.insecure=true should be removed when Nexus add support.
+		//  https://github.com/gradle/gradle/issues/11308
+		// https://issues.apache.org/jira/browse/INFRA-14923?focusedCommentId=16973071&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-16973071
 		execute('./gradlew clean :checkJdroidProjectConfig :closeGitHubMilestone :createJdroidGitHubRelease ' +
 				':generateChangelog publish --refresh-dependencies --stacktrace -PSNAPSHOT=false ' +
-				'-PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true -PACCEPT_SNAPSHOT_DEPENDENCIES=false', projectDir)
+				'-PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true -PACCEPT_SNAPSHOT_DEPENDENCIES=false ' +
+				'-Dorg.gradle.internal.publish.checksums.insecure=true', projectDir)
 	}
 }
