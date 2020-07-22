@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 
 public class ProjectConfigVerificationTask extends AbstractTask {
 
-	private static final String EXPECTED_JAVA_VERSION = "1.8";
+	private static final String EXPECTED_JAVA_VERSION = "11";
 
 	public ProjectConfigVerificationTask() {
 		setDescription("Validates if the project configuration is up to date");
