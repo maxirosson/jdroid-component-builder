@@ -1,12 +1,10 @@
 package com.jdroid.component.builder
 
-
 import com.jdroid.component.builder.config.ProjectConfigSyncTask
 import com.jdroid.component.builder.config.ProjectConfigVerificationTask
 import com.jdroid.component.builder.tasks.CreateGitHubReleaseTask
 import com.jdroid.component.builder.tasks.ReleaseJdroidComponentTask
 import org.gradle.api.Project
-import org.gradle.api.Task
 
 public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
@@ -22,10 +20,6 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			project.getTasks().getByName("closeGitHubMilestone").dependsOn("checkJdroidProjectConfig");
 			project.getTasks().getByName("generateChangelog").dependsOn("createJdroidGitHubRelease");
 			project.getTasks().getByName("createJdroidGitHubRelease").dependsOn("closeGitHubMilestone");
-			Task checkTask = project.getTasks().findByName("check");
-			if (checkTask != null) {
-				checkTask.dependsOn("checkJdroidProjectConfig");
-			}
 		}
 
 		project.getAllprojects().each {
