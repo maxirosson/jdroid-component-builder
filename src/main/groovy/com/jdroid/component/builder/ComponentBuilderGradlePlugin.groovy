@@ -17,7 +17,7 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 		project.getTasks().create("releaseJdroidComponent", ReleaseJdroidComponentTask.class);
 
 		project.afterEvaluate {
-			project.getTasks().getByName("closeGitHubMilestone").dependsOn("checkJdroidProjectConfig");
+			project.getTasks().getByName("closeGitHubMilestone").mustRunAfter("checkJdroidProjectConfig");
 			project.getTasks().getByName("generateChangelog").dependsOn("createJdroidGitHubRelease");
 			project.getTasks().getByName("createJdroidGitHubRelease").dependsOn("closeGitHubMilestone");
 		}
