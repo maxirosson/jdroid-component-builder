@@ -36,7 +36,7 @@ public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 		// https://github.com/gradle/gradle/issues/11308
 		// https://issues.sonatype.org/browse/NEXUS-21802
 		execute('./gradlew clean :checkJdroidProjectConfig :closeGitHubMilestone :createJdroidGitHubRelease ' +
-				':generateChangelog publish --refresh-dependencies --no-parallel --stacktrace -PSNAPSHOT=false ' +
+				':generateChangelog publish closeAndReleaseRepository --refresh-dependencies --no-parallel --stacktrace -PSNAPSHOT=false ' +
 				'-PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true -PACCEPT_SNAPSHOT_DEPENDENCIES=false ' +
 				'-Dorg.gradle.internal.publish.checksums.insecure=true', projectDir)
 	}
