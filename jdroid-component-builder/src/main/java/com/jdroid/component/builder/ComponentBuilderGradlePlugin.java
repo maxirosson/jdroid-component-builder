@@ -14,14 +14,14 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 
 		for (Project each : (Set<Project>)project.getAllprojects()) {
 			each.setGroup("com.jdroidtools");
-			each.setProperty("PUBLICATION_CONFIGURATION_ENABLED", true);
-			each.setProperty("JAVADOC_PUBLICATION_ENABLED", true);
-			each.setProperty("SOURCES_PUBLICATION_ENABLED", true);
-			each.setProperty("SIGNING_PUBLICATION_ENABLED", true);
-			each.setProperty("GITHUB_REPOSITORY_OWNER", "maxirosson");
-			each.setProperty("GITHUB_USER_NAME", "jdroid-ci");
-			each.setProperty("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
-			each.setProperty("GITHUB_CHANGELOG_GENERATOR_ENABLED", true);
+			each.getExtensions().getExtraProperties().set("PUBLICATION_CONFIGURATION_ENABLED", true);
+			each.getExtensions().getExtraProperties().set("JAVADOC_PUBLICATION_ENABLED", true);
+			each.getExtensions().getExtraProperties().set("SOURCES_PUBLICATION_ENABLED", true);
+			each.getExtensions().getExtraProperties().set("SIGNING_PUBLICATION_ENABLED", true);
+			each.getExtensions().getExtraProperties().set("GITHUB_REPOSITORY_OWNER", "maxirosson");
+			each.getExtensions().getExtraProperties().set("GITHUB_USER_NAME", "jdroid-ci");
+			each.getExtensions().getExtraProperties().set("GITHUB_USER_EMAIL", "jdroidtools@gmail.com");
+			each.getExtensions().getExtraProperties().set("GITHUB_CHANGELOG_GENERATOR_ENABLED", true);
 		}
 
 		// TODO The -Dorg.gradle.internal.publish.checksums.insecure=true should be removed when Nexus add support.
