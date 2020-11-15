@@ -19,7 +19,6 @@ repositories {
 
 dependencies {
 	compile(Libs.jdroid_java_core)
-	compile(Libs.jdroid_java_github)
 	testCompile(Libs.junit)
 }
 
