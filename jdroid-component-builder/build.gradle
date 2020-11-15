@@ -1,0 +1,33 @@
+ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
+description = "Gradle Plugin to build Jdroid Components"
+ext.ARTIFACT_ID = "jdroid-component-builder"
+
+apply plugin: "com.jdroidtools.gradle.plugin"
+// TODO This is disabled because when publishing with the Maven Publish plugin, it also publish local snapshots to Gradle Portal
+//apply plugin: "com.gradle.plugin-publish"
+
+buildscript {
+	dependencies {
+		//classpath(BuildLibs.GRADLE_PLUGIN_PUBLISH_PLUGIN)
+		classpath(BuildLibs.JDROID_GRADLE_PROJECT_PLUGIN)
+	}
+}
+
+repositories {
+	gradlePluginPortal()
+}
+
+dependencies {
+	compile(Libs.jdroid_java_core)
+	compile(Libs.jdroid_java_github)
+	testCompile(Libs.junit)
+}
+
+gradlePlugin {
+	plugins {
+		componentBuilderPlugin {
+			id = "com.jdroidtools.component.builder"
+			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
+		}
+	}
+}
