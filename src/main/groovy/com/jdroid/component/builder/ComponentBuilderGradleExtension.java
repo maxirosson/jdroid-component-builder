@@ -11,12 +11,13 @@ public class ComponentBuilderGradleExtension extends BaseGradleExtension {
 	public String getGitHubWriteToken() {
 		return getStringProp("GITHUB_WRITE_TOKEN");
 	}
+
 	public String getGitHubReadToken() {
 		return getStringProp("GITHUB_READ_TOKEN");
 	}
 
 	public String getRepositoryOwner() {
-		return getStringProp("GITHUB_REPOSITORY_OWNER", "maxirosson");
+		return getStringProp("GITHUB_REPOSITORY_OWNER");
 	}
 
 	public String getRepositoryName() {

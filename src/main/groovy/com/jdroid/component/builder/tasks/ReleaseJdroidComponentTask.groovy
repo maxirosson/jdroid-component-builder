@@ -1,5 +1,6 @@
 package com.jdroid.component.builder.tasks
 
+@Deprecated
 public class ReleaseJdroidComponentTask extends AbstractGitHubTask {
 
 	@Override
