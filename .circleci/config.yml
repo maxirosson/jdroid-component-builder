@@ -124,6 +124,11 @@ jobs:
 #          name: Generate Changelog
 #          command: ./gradlew :generateChangelog << pipeline.parameters.releaseGradleFlags >>
       - run:
+          name: Configure GPG private key for signing project artifacts in OSS Sonatype
+          command: |
+#           http://www.bennybottema.com/2019/02/20/automating-your-github-library-releases-to-maven-central/
+            echo $SECRING_GPG_ASC_BASE64 | base64 --decode | gpg --batch --no-tty --import --yes
+      - run:
           name: Publish
           command: ./gradlew publish << pipeline.parameters.releaseGradleFlags >>
 #      - run:
