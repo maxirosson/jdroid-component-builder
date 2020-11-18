@@ -142,6 +142,7 @@ workflows:
             branches:
               only:
                 - master
+                - production
           requires:
             - verify
   release:
