@@ -36,32 +36,11 @@ executors:
       GRADLE_OPTS: -Dorg.gradle.caching=false -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dorg.gradle.jvmargs="-Xmx4g -Xms1g"
       JAVA_MAX_HEAP_SIZE: 4096m
 
-commands:
-  restore_gradle_cache:
-    steps:
-      - restore_cache:
-          keys:
-            - v2-gradle_cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ .Branch }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
-            - v2-gradle_cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ .Branch }}
-            - v2-gradle_cache-
-
-  save_gradle_cache:
-    steps:
-      - save_cache:
-          key: v2-gradle_cache-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ .Branch }}-{{ checksum "buildSrc/src/main/kotlin/Libs.kt" }}-{{ checksum "buildSrc/src/main/kotlin/BuildLibs.kt" }}
-          paths:
-            - ~/.gradle
-
 jobs:
   build:
     executor: jdk_executor
     steps:
       - checkout
-      - restore_gradle_cache
-      - run:
-          name: Download dependencies
-          command: ./gradlew dependencies --refresh-dependencies --stacktrace
-      - save_gradle_cache
       - run:
           name: Assembling
           command: ./gradlew assemble --stacktrace
@@ -79,7 +58,6 @@ jobs:
     executor: jdk_executor
     steps:
       - checkout
-      - restore_gradle_cache
       - run:
           name: Verifying
           command: ./gradlew check --stacktrace
@@ -100,7 +78,6 @@ jobs:
     executor: jdk_executor
     steps:
       - checkout
-      - restore_gradle_cache
       - run:
           name: Uploading to Nexus Sonatype
           command: ./gradlew publish -PLOCAL_UPLOAD=false --stacktrace
