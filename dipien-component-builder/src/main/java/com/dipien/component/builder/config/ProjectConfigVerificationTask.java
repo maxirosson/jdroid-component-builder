@@ -1,6 +1,6 @@
-package com.jdroid.component.builder.config;
+package com.dipien.component.builder.config;
 
-import com.jdroid.component.builder.tasks.AbstractTask;
+import com.dipien.component.builder.tasks.AbstractTask;
 import com.jdroid.java.utils.StreamUtils;
 
 import org.gradle.api.plugins.JavaBasePlugin;

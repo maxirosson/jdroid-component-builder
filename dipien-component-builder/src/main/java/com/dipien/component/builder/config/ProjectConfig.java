@@ -1,4 +1,4 @@
-package com.jdroid.component.builder.config;
+package com.dipien.component.builder.config;
 
 public enum ProjectConfig {
 

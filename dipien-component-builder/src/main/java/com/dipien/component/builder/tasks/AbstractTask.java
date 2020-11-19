@@ -1,6 +1,6 @@
-package com.jdroid.component.builder.tasks;
+package com.dipien.component.builder.tasks;
 
-import com.jdroid.component.builder.commons.PropertyResolver;
+import com.dipien.component.builder.commons.PropertyResolver;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.logging.LogLevel;

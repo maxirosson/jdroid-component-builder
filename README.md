@@ -1,16 +1,16 @@
-# Jdroid Component Builder
+# Dipien Component Builder
 Plugin, Tools &amp; Processes to build Jdroid Components
 
 ## Continuous Integration
 |Branch|Status|Workflows|Insights|
 | ------------- | ------------- | ------------- | ------------- |
-|master|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/master.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/master)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-component-builder/tree/master)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-component-builder/master)|
-|production|[![CircleCI](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/production.svg?style=svg)](https://circleci.com/gh/maxirosson/jdroid-component-builder/tree/production)|[Workflows](https://circleci.com/gh/maxirosson/workflows/jdroid-component-builder/tree/production)|[Insights](https://circleci.com/build-insights/gh/maxirosson/jdroid-component-builder/production)|
+|master|[![CircleCI](https://circleci.com/gh/dipien/dipien-component-builder/tree/master.svg?style=svg)](https://circleci.com/gh/dipien/dipien-component-builder/tree/master)|[Workflows](https://circleci.com/gh/dipien/workflows/dipien-component-builder/tree/master)|[Insights](https://circleci.com/build-insights/gh/dipien/dipien-component-builder/master)|
+|production|[![CircleCI](https://circleci.com/gh/dipien/dipien-component-builder/tree/production.svg?style=svg)](https://circleci.com/gh/dipien/dipien-component-builder/tree/production)|[Workflows](https://circleci.com/gh/dipien/workflows/dipien-component-builder/tree/production)|[Insights](https://circleci.com/build-insights/gh/dipien/dipien-component-builder/production)|
 
-## New Jdroid component creation
+## New dipien component creation
 
 #### GitHub
-* Create a github repository. Add the prefix `jdroid-` to the repository name
+* Create a github repository.
 * Protect the main branches (master & production) and check the option "Require pull request reviews before merging"
 * Remove all the issues labels, keeping only bug (red), enhancement (sky blue) and task (white)
 * Add the following files/directories:
@@ -18,13 +18,16 @@ Plugin, Tools &amp; Processes to build Jdroid Components
   * [LICENCE-md](LICENCE.md)
   * [.gitignore](.gitignore)
   * [.idea/codeStyles/](.idea/codeStyles/)
-  * [gradlew](gradlew)
-  * [gradle/wrapper/](gradle/wrapper/)
-* Add the project on Jdroid [README](https://github.com/maxirosson/jdroid/blob/master/README.md)
 
 #### Circle CI
 * Add the project
-* Add JDROID_NEXUS_USERNAME and JDROID_NEXUS_PASSWORD environment variables
+* Add the following environment variables:
+  * GITHUB_USER_EMAIL
+  * GITHUB_USER_NAME
+  * GITHUB_WRITE_TOKEN
+  * PUBLISHING_REPO_PASSWORD
+  * PUBLISHING_REPO_USERNAME
+  * RELEASES_HUB_USER_TOKEN
 
 #### Local Environment
 * Clone the project to the local environment

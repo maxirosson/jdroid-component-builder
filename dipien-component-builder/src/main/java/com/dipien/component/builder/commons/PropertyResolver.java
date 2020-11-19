@@ -1,4 +1,4 @@
-package com.jdroid.component.builder.commons;
+package com.dipien.component.builder.commons;
 
 
 import com.jdroid.java.utils.StringUtils;

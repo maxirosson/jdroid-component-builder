@@ -1,7 +1,7 @@
 How to contribute
 ======
 
-Looking to contribute something to jdroid? **Here's how you can help.**
+Looking to contribute something to dipien? **Here's how you can help.**
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved.
@@ -96,7 +96,7 @@ included in the project:
    # Navigate to the newly cloned directory
    cd <repo-name>
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream git@github.com:maxirosson/<repo-name>.git
+   git remote add upstream git@github.com:dipien/<repo-name>.git
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
@@ -150,5 +150,5 @@ or your code is unlikely be merged into the main project.
 
 ## Code guidelines
 
-[Follow these code guidelines](https://github.com/maxirosson/jdroid/wiki/Code-guidelines)
+[Follow these code guidelines](https://github.com/dipien/jdroid/wiki/Code-guidelines)
 

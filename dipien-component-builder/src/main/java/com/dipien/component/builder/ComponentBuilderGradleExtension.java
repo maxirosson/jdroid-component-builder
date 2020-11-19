@@ -1,4 +1,4 @@
-package com.jdroid.component.builder;
+package com.dipien.component.builder;
 
 import org.gradle.api.Project;
 

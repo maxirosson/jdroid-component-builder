@@ -1,6 +1,6 @@
-package com.jdroid.component.builder;
+package com.dipien.component.builder;
 
-import com.jdroid.component.builder.commons.PropertyResolver;
+import com.dipien.component.builder.commons.PropertyResolver;
 
 import org.gradle.api.Project;
 

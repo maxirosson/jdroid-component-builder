@@ -1,6 +1,6 @@
-ext.PROJECT_NAME = "Jdroid Component Builder Plugin"
-description = "Gradle Plugin to build Jdroid Components"
-ext.ARTIFACT_ID = "jdroid-component-builder"
+ext.PROJECT_NAME = "Dipien Component Builder Plugin"
+description = "Gradle Plugin to build Dipien Components"
+ext.ARTIFACT_ID = "dipien-component-builder"
 
 apply plugin: "com.jdroidtools.gradle.plugin"
 // TODO This is disabled because when publishing with the Maven Publish plugin, it also publish local snapshots to Gradle Portal
@@ -26,7 +26,7 @@ gradlePlugin {
 	plugins {
 		componentBuilderPlugin {
 			id = "com.jdroidtools.component.builder"
-			implementationClass = "com.jdroid.component.builder.ComponentBuilderGradlePlugin"
+			implementationClass = "com.dipien.component.builder.ComponentBuilderGradlePlugin"
 		}
 	}
 }
