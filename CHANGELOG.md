@@ -1,5 +1,12 @@
 # Change Log
 
+## [v2.3.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.3.0) (2020-11-18)
+[Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v2.2.0...v2.3.0)
+
+**Implemented enhancements:**
+
+- Fixed task dependencies [\#43](https://github.com/maxirosson/jdroid-component-builder/issues/43)
+
 ## [v2.2.0](https://github.com/maxirosson/jdroid-component-builder/tree/v2.2.0) (2019-09-07)
 [Full Changelog](https://github.com/maxirosson/jdroid-component-builder/compare/v2.1.0...v2.2.0)
 
