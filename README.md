@@ -1,5 +1,5 @@
 # Dipien Component Builder
-Plugin, Tools &amp; Processes to build Jdroid Components
+Plugin, Tools &amp; Processes to build Dipien Components
 
 ## Continuous Integration
 |Branch|Status|Workflows|Insights|
