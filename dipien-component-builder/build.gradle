@@ -25,7 +25,7 @@ dependencies {
 gradlePlugin {
 	plugins {
 		componentBuilderPlugin {
-			id = "com.jdroidtools.component.builder"
+			id = "com.dipien.component.builder"
 			implementationClass = "com.dipien.component.builder.ComponentBuilderGradlePlugin"
 		}
 	}
