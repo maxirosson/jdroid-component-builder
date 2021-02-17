@@ -1,18 +1,16 @@
 package com.dipien.component.builder;
 
+import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
-import java.util.Set;
-
-public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
+public class ComponentBuilderGradlePlugin implements Plugin<Project> {
 
 	public void apply(Project project) {
-		super.apply(project);
 
-//		project.getTasks().create("syncDipienProjectConfig", ProjectConfigSyncTask.class);
-//		project.getTasks().create("checkDipienProjectConfig", ProjectConfigVerificationTask.class);
+		// TODO Add configuration here, so ProjectConfigValidationTask on jdroid-gradle-root-plugin can also validate all the
+		//  resources in this repo
 
-		for (Project each : (Set<Project>)project.getAllprojects()) {
+		for (Project each : project.getAllprojects()) {
 			each.setGroup("com.dipien");
 			each.getExtensions().getExtraProperties().set("PUBLICATION_CONFIGURATION_ENABLED", true);
 			each.getExtensions().getExtraProperties().set("JAVADOC_PUBLICATION_ENABLED", true);
@@ -31,18 +29,5 @@ public class ComponentBuilderGradlePlugin extends BaseGradlePlugin {
 			each.getExtensions().getExtraProperties().set("POM_LICENSE_NAME", "The Apache License, Version 2.0");
 			each.getExtensions().getExtraProperties().set("POM_LICENSE_URL", "http://www.apache.org/licenses/LICENSE-2.0.txt");
 		}
-
-		// TODO The -Dorg.gradle.internal.publish.checksums.insecure=true should be removed when Nexus add support.
-		// https://github.com/gradle/gradle/issues/11308
-		// https://issues.sonatype.org/browse/NEXUS-21802
-//		commandExecutor.execute('./gradlew clean :checkDipienProjectConfig :closeGitHubMilestone :createGitHubRelease ' +
-//			':generateChangelog publish closeAndReleaseRepository --refresh-dependencies --no-parallel --stacktrace -PSNAPSHOT=false ' +
-//			'-PLOCAL_UPLOAD=false -PRELEASE_BUILD_TYPE_ENABLED=true -PRELEASE_FAKE_ENABLED=true -PACCEPT_SNAPSHOT_DEPENDENCIES=false ' +
-//			'-Dorg.gradle.internal.publish.checksums.insecure=true', projectDir)
-	}
-
-
-	protected Class<? extends ComponentBuilderGradleExtension> getExtensionClass() {
-		return ComponentBuilderGradleExtension.class;
 	}
 }

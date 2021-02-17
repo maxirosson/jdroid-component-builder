@@ -2,8 +2,9 @@ version = '3.1.0'
 
 ext.GITHUB_REPOSITORY_NAME = "dipien-component-builder"
 
-apply plugin: "com.jdroidtools.component.builder"
+apply plugin: "com.dipien.component.builder"
 apply plugin: "com.jdroidtools.root"
+apply plugin: "com.dipien.releasegradleplugin"
 
 buildscript {
 	repositories {
@@ -44,6 +45,7 @@ buildscript {
 	dependencies {
 		classpath(BuildLibs.JDROID_COMPONENT_BUILDER)
 		classpath(BuildLibs.JDROID_GRADLE_ROOT_PLUGIN)
+		classpath(BuildLibs.RELEASE_GRADLE_PLUGIN)
 	}
 }
 
