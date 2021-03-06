@@ -35,3 +35,16 @@ Plugin, Tools &amp; Processes to build Dipien Components
 * Clone the project to the local environment
 * Execute the following command on the root directory
   * git config user.email your@email.com
+
+## Donations
+
+Donations are greatly appreciated. You can help us to pay for our domain and this project development.
+
+* [Donate cryptocurrency](http://coinbase.dipien.com/)
+* [Donate with PayPal](http://paypal.dipien.com/)
+* [Donate on Patreon](http://patreon.dipien.com/)
+
+## Follow us
+* [Twitter](https://twitter.com/ReleasesHub)
+* [Medium](http://medium.dipien.com)
+* [Blog](http://blog.dipien.com)
