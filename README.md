@@ -1,3 +1,5 @@
+[![Dipien](https://raw.githubusercontent.com/dipien/dipien-component-builder/master/.github/dipien_logo.png)](http://www.dipien.com)
+
 # Dipien Component Builder
 Plugin, Tools &amp; Processes to build Dipien Components
 
