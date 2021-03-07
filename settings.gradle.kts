@@ -3,3 +3,5 @@ plugins {
 }
 
 include(":dipien-component-builder")
+
+apply(from = java.io.File(settingsDir, "buildCacheSettings.gradle"))
