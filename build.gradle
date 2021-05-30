@@ -8,12 +8,7 @@ apply plugin: "com.dipien.release"
 
 buildscript {
 	repositories {
-		jcenter {
-			mavenContent {
-				releasesOnly()
-			}
-		}
-		jcenter()
+	        mavenCentral()
 		google()
 		String localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
 		boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
@@ -39,7 +34,6 @@ buildscript {
 				snapshotsOnly()
 			}
 		}
-		mavenCentral()
 		gradlePluginPortal()
 	}
 	dependencies {
@@ -52,12 +46,7 @@ buildscript {
 allprojects {
 	buildscript {
 		repositories {
-			jcenter {
-				mavenContent {
-					releasesOnly()
-				}
-			}
-			jcenter()
+			mavenCentral()
 			google()
 			String localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
 			boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
@@ -82,12 +71,7 @@ allprojects {
 	}
 
 	repositories {
-		jcenter {
-			mavenContent {
-				releasesOnly()
-			}
-		}
-		jcenter()
+		mavenCentral()
 		google()
 		String localMavenRepoEnabled = project.hasProperty("LOCAL_MAVEN_REPO_ENABLED") ? project.ext.get("LOCAL_MAVEN_REPO_ENABLED") : System.getenv("LOCAL_MAVEN_REPO_EMABLED")
 		boolean isLocalMavenRepoEnabled = localMavenRepoEnabled != null && localMavenRepoEnabled == "true"
@@ -113,7 +97,6 @@ allprojects {
 				snapshotsOnly()
 			}
 		}
-		mavenCentral()
 		gradlePluginPortal()
 	}
 }
